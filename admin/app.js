@@ -1,5 +1,5 @@
 
-//wew
+//wewewewe
 var newTeacher = document.getElementById('newTeacher');
 var newStudent = document.getElementById('newStudent');
 var showTeacher = document.getElementById('showTeacher');
