@@ -179,7 +179,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'teacherAdded'){
             </div>
         </div>
    
-        <div class="col-8" id="addTeacher"  style="display:none;">
+        <div class="col-8" id="addTeacher"  style="display:none; padding-left:60px;">
             
                
         <div class="wrapper">
