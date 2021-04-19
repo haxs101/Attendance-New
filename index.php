@@ -67,7 +67,8 @@ if(isset($_SESSION['SESS_FIRST_NAME'])&&!isset($_SESSION['SESS_FIRST_NAME'])) {
                                 ?>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-default waves-effect waves-light">Student Login</button>
-                                    <a href="loginteacher.php" class="btn btn-deep-orange waves-effect waves-light">Teacher Login</a>    
+                                    <a href="loginteacher.php" class="btn btn-deep-orange waves-effect waves-light">Teacher Login</a> 
+                                    <a href="admin.php" class="btn btn-primary waves-effect waves-light">Admin Login</a>    
                                 </div>
                             </form>                           
                         </div>

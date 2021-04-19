@@ -38,11 +38,13 @@ if(isset($_POST['addTeacher'])){
             if($stmt->execute()){
                 if($stmt->rowCount() == 1){
                     $email_err = "This username is already taken.";
+                    header("location: adminLogin.php?action=error");
                 } else{
                     $email = trim($_POST["email"]);
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
+                header("location: adminLogin.php?action=error");
             }
 
             // Close statement
@@ -104,8 +106,10 @@ if(isset($_POST['addTeacher'])){
             $param_contact = $contact;
             $param_address = $address;
             $param_email = $email;
-            $param_password = $password; // Creates a password hash
+            $param_password_email = $password;
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
 
+            //$param_password_verify = password_verify($password, PASSWORD_DEFAULT); 
            
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -113,7 +117,7 @@ if(isset($_POST['addTeacher'])){
 
             //variables for email
 
-            $message = " Your login credentials <br> Email: $param_email <br> Password: $param_password";
+            $message = " <p><strong>Your login credentials </strong></p> <p>Email: $param_email </p> <p> Password: $param_password_email </p> <p>Best regards,</p> <p>Admin</p>" ;
             $subject = "Welcome $param_teacherName! ";
                //send email
             $email = new \SendGrid\Mail\Mail(); 
@@ -137,7 +141,7 @@ if(isset($_POST['addTeacher'])){
                 echo $added = "ADDED";
                 header("location: adminLogin.php?action=teacherAdded");
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                header("location: adminLogin.php?action=error");
             }
 
             // Close statement
@@ -165,6 +169,11 @@ if(isset($_POST['addTeacher'])){
 <?php
 if(isset($_GET['action']) && $_GET['action'] == 'teacherAdded'){
 					echo "<h4 class='alert alert-success'>Teacher added successfully!</h4>";
+				}
+				?>
+                <?php
+if(isset($_GET['action']) && $_GET['action'] == 'error'){
+					echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
 				}
 				?>
 <h1>Hello <?php echo htmlspecialchars($_SESSION["username"]); ?> </h1>

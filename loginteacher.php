@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: admin/adminLogin.php");
+    header("location: teacher.php");
     exit;
 }
  
@@ -12,17 +12,17 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "database/config.php";
  
 // Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
+$email = $password = "";
+$email_err = $password_err = $login_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
+    // Check if email is empty
+    if(empty(trim($_POST["email"]))){
+        $email_err = "Please enter email.";
     } else{
-        $username = trim($_POST["username"]);
+        $email = trim($_POST["email"]);
     }
     
     // Check if password is empty
@@ -33,24 +33,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate credentials
-    if(empty($username_err) && empty($password_err)){
+    if(empty($email_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT No, username, password FROM admin WHERE username = :username";
+        $sql = "SELECT idNumber, Email, password FROM newteacher WHERE Email = :email";
         
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+            $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
             
             // Set parameters
-            $param_username = trim($_POST["username"]);
+            $param_email = trim($_POST["email"]);
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                // Check if username exists, if yes then verify password
+                // Check if email exists, if yes then verify password
                 if($stmt->rowCount() == 1){
                     if($row = $stmt->fetch()){
-                        $id = $row["No"];
-                        $username = $row["username"];
+                        $id = $row["idNumber"];
+                        $email = $row["Email"];
                         $hashed_password = $row["password"];
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -58,19 +58,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
-                            $_SESSION["No"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            $_SESSION["idNumber"] = $id;
+                            $_SESSION["email"] = $email;                            
                             
                             // Redirect user to welcome page
-                            header("location: admin/adminLogin.php");
+                            header("location: teacher.php");
                         } else{
-                            // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password. Please try again! ";
+                            // Password is idNumbert valid, display a generic error message
+                            $login_err = "Invalid email or password. Please try again! ";
                         }
                     }
                 } else{
-                    // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password. Please try again!";
+                    // email doesn't exist, display a generic error message
+                    $login_err = "Invalid email or password. Please try again!";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -92,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=idNumber">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title>Attendence Management System</title>
@@ -126,7 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="card-body">
                             <!--Header-->
                             <div class="form-header default-color text-center">
-                                <h3>Login</h3>
+                                <h3> Teacher Login</h3>
                             </div>
                             
                             <!--Error Message-->
@@ -139,8 +139,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="login" method="post">
                                 <div class="md-form">
                                     <i class="fa fa-id-card prefix grey-text"></i>
-                                    <input id="cyanForm-email" class="form-control" type="text" name="username" required>
-                                    <label for="cyanForm-email">Admin Login</label>
+                                    <input id="cyanForm-email" class="form-control" type="text" name="email" required>
+                                    <label for="cyanForm-email">Teacher Login</label>
                                 </div>
                                 <div class="md-form">
                                     <i class="fa fa-lock prefix grey-text"></i>
@@ -150,7 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                
                                 <div class="text-center">
                                     <button type="submit" name="login" class="btn btn-default waves-effect waves-light">Login</button>
-                                    <a href="index.php" class="btn btn-primary waves-effect waves-light">Go Back</a>  
+                                    <a href="index.php" class="btn btn-primary waves-effect waves-light">Go Back</a>   
                                 </div>
                                
                             </form>                           
