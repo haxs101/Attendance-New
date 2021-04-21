@@ -35,6 +35,13 @@ if(isset($_GET['action']) && $_GET['action'] == 'teacherAdded'){
 					echo "<h4 class='alert alert-success'>Teacher added successfully!</h4>";
 				}
 				?>
+
+<?php
+if(isset($_GET['action']) && $_GET['action'] == 'delete'){
+					echo "<h4 class='alert alert-success'>Teacher deleted successfully!</h4>";
+				}
+				?>
+                
                 <?php
 if(isset($_GET['action']) && $_GET['action'] == 'error'){
 					echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
@@ -148,56 +155,68 @@ if(isset($_GET['action']) && $_GET['action'] == 'error'){
                     <th scope="col">CONTACT</th>
                     <th scope="col">ADDRESS</th>
                     <th scope="col">EMAIL</th>
+                   
                     </tr>
                 </thead>
                 <tbody>
                 <?php while ($row = $q->fetch(1)): ?>
                     <tr>
-                        <th scope="row"><?php echo htmlspecialchars($row[0]) ?></th>
-                        <td><?php echo htmlspecialchars($row['1']) ?></td>
+                        <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
                         <td><?php echo htmlspecialchars($row['2']) ?></td>
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
-                        <td><a href="deleteProcess.php"><img src="../icons/delete.svg"></a></td>
+                        <td><?php echo htmlspecialchars($row['5']) ?></td>
+                        <td><td><a href="deleteProcess.php"><img src="../icons/delete.svg"></a></td></td>
                     </tr>
                     <?php endwhile; ?>
                     <tr>
                     <?php while ($row = $q->fetch(2)): ?>
-                    <th scope="row"><?php echo htmlspecialchars($row[0]) ?></th>
-                        <td><?php echo htmlspecialchars($row['1']) ?></td>
+                    <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
                         <td><?php echo htmlspecialchars($row['2']) ?></td>
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
+                        <td><?php echo htmlspecialchars($row['5']) ?></td>
+                        <td><a href="deleteProcess.php"><img src="../icons/delete.svg"></a></td>
                     </tr>
                     <?php endwhile; ?>
 
                     <tr>
                     <?php while ($row = $q->fetch(3)): ?>
-                    <th scope="row"><?php echo htmlspecialchars($row[0]) ?></th>
-                        <td><?php echo htmlspecialchars($row['1']) ?></td>
+                        <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
                         <td><?php echo htmlspecialchars($row['2']) ?></td>
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
+                        <td><?php echo htmlspecialchars($row['5']) ?></td>
                     </tr>
                     <?php endwhile; ?>
 
                     <tr>
                     <?php while ($row = $q->fetch(4)): ?>
-                    <th scope="row"><?php echo htmlspecialchars($row[0]) ?></th>
-                        <td><?php echo htmlspecialchars($row['1']) ?></td>
+                        <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
                         <td><?php echo htmlspecialchars($row['2']) ?></td>
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
+                        <td><?php echo htmlspecialchars($row['5']) ?></td>
                     </tr>
                     <?php endwhile; ?>
 
                     <tr>
                     <?php while ($row = $q->fetch(5)): ?>
-                    <th scope="row"><?php echo htmlspecialchars($row[0]) ?></th>
-                        <td><?php echo htmlspecialchars($row['1']) ?></td>
+                        <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
                         <td><?php echo htmlspecialchars($row['2']) ?></td>
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
+                        <td><?php echo htmlspecialchars($row['5']) ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+
+                    <tr>
+                    <?php while ($row = $q->fetch(6)): ?>
+                        <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
+                        <td><?php echo htmlspecialchars($row['2']) ?></td>
+                        <td><?php echo htmlspecialchars($row['3']) ?></td>
+                        <td><?php echo htmlspecialchars($row['4']) ?></td>
+                        <td><?php echo htmlspecialchars($row['5']) ?></td>
                     </tr>
                     <?php endwhile; ?>
                 </tbody>
