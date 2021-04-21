@@ -45,7 +45,7 @@ if(isset($_SESSION['SESS_FIRST_NAME'])&&!isset($_SESSION['SESS_FIRST_NAME'])) {
                         <div class="card-body">
                             <!--Header-->
                             <div class="form-header default-color text-center">
-                                <h3>Login</h3>
+                                <h3><img src="./icons/student-portal.png"></h3>
                             </div>
                             <!--Body-->
                             <form action="login_exec.php" name="login" method="post">
