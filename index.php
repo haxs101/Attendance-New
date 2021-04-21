@@ -22,7 +22,7 @@ if(isset($_SESSION['SESS_FIRST_NAME'])&&!isset($_SESSION['SESS_FIRST_NAME'])) {
     <link href="css/main.css" rel="stylesheet">
     <style rel="stylesheet">
         body {
-            background-image: url('http://edusources.in/educampus/img/USICT.jpg');
+            background-image: url('./icons/1.jpg');
         } 
         main {
             padding-top: 4rem;
