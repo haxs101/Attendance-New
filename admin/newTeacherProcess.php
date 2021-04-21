@@ -3,6 +3,9 @@
 require '../vendor/autoload.php';
 //require_once "../database/mailerconfig.php";
 require_once "../database/config.php";
+
+
+//ni_set('memory_limit', '8024M');
  
 // Define variables and initialize with empty values
 $email = $password  = "";
@@ -76,13 +79,88 @@ if(isset($_POST['addTeacher'])){
     } else{
         $address = trim($_POST["address"]);
     }
+
+    if(empty(trim($_POST["subject1"]))){
+        $password_err = "Please enter a subject.";     
+    } else{
+        $subject1 = trim($_POST["subject1"]);
+    }
+   
+    if(empty(trim($_POST["subject2"]))){
+        $password_err = "Please enter a subject2.";     
+    } else{
+        $subject2 = trim($_POST["subject2"]);
+    }
+
+    if(empty(trim($_POST["subject3"]))){
+        $password_err = "Please enter a subject3.";     
+    } else{
+        $subject3 = trim($_POST["subject3"]);
+    }
+   
+   //Create table FOR EVRY SUBJECT
+
+   $sql2 = "CREATE TABLE $subject1(
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
+    email VARCHAR(50),
+    password VARCHAR(50) NOT NULL,
+    attendance VARCHAR(10) NOT NULL
+)";  
+        if ($pdo->query($sql2) === TRUE) {
+                echo "Table MyGuests created successfully";
+            } else {
+                echo "Error creating table: " . $pdo->error;
+        }
+
+
+    $sql2 = "CREATE TABLE $subject2(
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        firstname VARCHAR(30) NOT NULL,
+        lastname VARCHAR(30) NOT NULL,
+        email VARCHAR(50),
+        password VARCHAR(50) NOT NULL,
+        attendance VARCHAR(10) NOT NULL
+            )";  
+            if ($pdo->query($sql2) === TRUE) {
+                    echo "Table MyGuests created successfully";
+                } else {
+                    echo "Error creating table: " . $pdo->error;
+            }
+    
+        $sql2 = "CREATE TABLE $subject3(
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            firstname VARCHAR(30) NOT NULL,
+            lastname VARCHAR(30) NOT NULL,
+            email VARCHAR(50),
+            password VARCHAR(50) NOT NULL,
+            attendance VARCHAR(10) NOT NULL
+                    )";  
+                if ($pdo->query($sql2) === TRUE) {
+                        echo "Table MyGuests created successfully";
+                    } else {
+                        echo "Error creating table: " . $pdo->error;
+                }
+        
+
    
     // Check input errors before inserting in database
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password)";
+        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subject1, subject2, subject3) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :subject1, :subject2, :subject3)";
          
+      
+
+        
+
+
+
+
+
+
+
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
@@ -91,6 +169,9 @@ if(isset($_POST['addTeacher'])){
             $stmt->bindParam(":contact", $param_contact, PDO::PARAM_STR);
             $stmt->bindParam(":address", $param_address, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+            $stmt->bindParam(":subject1", $param_subject1, PDO::PARAM_STR);
+            $stmt->bindParam(":subject3", $param_subject2, PDO::PARAM_STR);
+            $stmt->bindParam(":subject2", $param_subject3, PDO::PARAM_STR);
             
             // Set parameters
             $param_idNumber = $idNumber;
@@ -99,8 +180,11 @@ if(isset($_POST['addTeacher'])){
             $param_address = $address;
             $param_email = $email;
             $param_password_email = $password;
+            $param_subject1 = $subject1;
+            $param_subject2 = $subject2;
+            $param_subject3 = $subject3;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-
+            
             //$param_password_verify = password_verify($password, PASSWORD_DEFAULT); 
            
             // Attempt to execute the prepared statement
@@ -136,6 +220,8 @@ if(isset($_POST['addTeacher'])){
                 header("location: adminLogin.php?action=error");
             }
 
+
+            
             // Close statement
             unset($stmt);
         }
