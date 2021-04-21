@@ -166,7 +166,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'error'){
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
                         <td><?php echo htmlspecialchars($row['5']) ?></td>
-                        <td><td><a href="deleteProcess.php"><img src="../icons/delete.svg"></a></td></td>
+                        <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
                     </tr>
                     <?php endwhile; ?>
                     <tr>
@@ -176,7 +176,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'error'){
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
                         <td><?php echo htmlspecialchars($row['5']) ?></td>
-                        <td><a href="deleteProcess.php"><img src="../icons/delete.svg"></a></td>
+                        <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
                     </tr>
                     <?php endwhile; ?>
 
@@ -187,6 +187,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'error'){
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
                         <td><?php echo htmlspecialchars($row['5']) ?></td>
+                        <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
+
                     </tr>
                     <?php endwhile; ?>
 
@@ -197,6 +199,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'error'){
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
                         <td><?php echo htmlspecialchars($row['5']) ?></td>
+                        <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
+
                     </tr>
                     <?php endwhile; ?>
 
@@ -207,6 +211,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'error'){
                         <td><?php echo htmlspecialchars($row['3']) ?></td>
                         <td><?php echo htmlspecialchars($row['4']) ?></td>
                         <td><?php echo htmlspecialchars($row['5']) ?></td>
+                        <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
+
                     </tr>
                     <?php endwhile; ?>
 
