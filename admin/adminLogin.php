@@ -105,16 +105,27 @@
                         <input type="text" name="contact" class="form-control" required>
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
                     </div>
-
+                    <!-- SUBJECTS -->
                     <div class="form-group">
-                        <label>Subject handled</label>
-                        <input type="text" name="subject1" class="form-control" required><br>
-                        <input type="text" name="subject2" class="form-control" ><br>
-                        <input type="text" name="subject3" class="form-control" ><br>   
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                        <label>Select Subjects</label><br>
+                    
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox"  name ="subject[]" id="inlineCheckbox1" value="CS121">
+                            <label class="form-check-label" for="inlineCheckbox1">cs121</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox"  name ="subject[]" id="inlineCheckbox2" value="CS121L">
+                            <label class="form-check-label" for="inlineCheckbox2">cs121L</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name ="subject[]" id="inlineCheckbox3" value="CS123">
+                            <label class="form-check-label" for="inlineCheckbox3">cs123</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name ="subject[]" id="inlineCheckbox3" value="CS123L">
+                            <label class="form-check-label" for="inlineCheckbox3">CS123L</label>
+                        </div>
                     </div>
-
-
                     <div class="form-group">
                         <label>Email</label>
                         <input type="text" name="email" class="form-control" required>

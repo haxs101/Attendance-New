@@ -80,48 +80,46 @@ if(isset($_POST['addTeacher'])){
         $address = trim($_POST["address"]);
     }
 
-    if(empty(trim($_POST["subject1"]))){
-        $password_err = "Please enter a subject.";     
-    } else{
-        $subject1 = trim($_POST["subject1"]);
-    }
-   
-    if(empty(trim($_POST["subject2"]))){
-        $password_err = "Please enter a subject2.";     
-    } else{
-        $subject2 = trim($_POST["subject2"]);
-    }
+   $subject = $_POST['subject'];
+   $sub = "";
 
-    if(empty(trim($_POST["subject3"]))){
-        $password_err = "Please enter a subject3.";     
-    } else{
-        $subject3 = trim($_POST["subject3"]);
-    }
-   
+   foreach($subject as $sub1)  
+   {  
+      $sub .= $sub1.",";  
+   } 
    //Create table FOR EVRY SUBJECT
 
-   $sql2 = "CREATE TABLE $subject1(
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    firstname VARCHAR(30) NOT NULL,
-    lastname VARCHAR(30) NOT NULL,
+  /**  $sql2 = "CREATE TABLE `$sub`(
+    id INT(6) AUTO_INCREMENT PRIMARY KEY,
+    fullname VARCHAR(30) NOT NULL,
+    type1 VARCHAR(30) NOT NULL,
     email VARCHAR(50),
     password VARCHAR(50) NOT NULL,
-    attendance VARCHAR(10) NOT NULL
-)";  
+    attendance VARCHAR(10)  NOT NULL
+        )";  
         if ($pdo->query($sql2) === TRUE) {
                 echo "Table MyGuests created successfully";
+                $sql3 = "INSERT INTO `$sub`(fullname, type, email, password, attendance) VALUES (:teacherName, Teacher, :email, :password, PRESENT)";
+                if ($pdo->query($sql3) === TRUE) {
+                    echo "ADDED";
+                }else{
+                    echo "Errorr";
+                }
             } else {
                 echo "Error creating table: " . $pdo->error;
         }
 
 
-    $sql2 = "CREATE TABLE $subject2(
+
+       
+
+    $sql2 = "CREATE TABLE `$subl`(
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         firstname VARCHAR(30) NOT NULL,
         lastname VARCHAR(30) NOT NULL,
         email VARCHAR(50),
         password VARCHAR(50) NOT NULL,
-        attendance VARCHAR(10) NOT NULL
+        attendance VARCHAR(10)  NOT NULL
             )";  
             if ($pdo->query($sql2) === TRUE) {
                     echo "Table MyGuests created successfully";
@@ -129,7 +127,7 @@ if(isset($_POST['addTeacher'])){
                     echo "Error creating table: " . $pdo->error;
             }
     
-        $sql2 = "CREATE TABLE $subject3(
+        $sql2 = "CREATE TABLE `$cs123`(
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             firstname VARCHAR(30) NOT NULL,
             lastname VARCHAR(30) NOT NULL,
@@ -143,13 +141,13 @@ if(isset($_POST['addTeacher'])){
                         echo "Error creating table: " . $pdo->error;
                 }
         
-
+*/
    
     // Check input errors before inserting in database
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subject1, subject2, subject3) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :subject1, :subject2, :subject3)";
+        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subjects) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :sub)";
          
       
 
@@ -169,10 +167,9 @@ if(isset($_POST['addTeacher'])){
             $stmt->bindParam(":contact", $param_contact, PDO::PARAM_STR);
             $stmt->bindParam(":address", $param_address, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
-            $stmt->bindParam(":subject1", $param_subject1, PDO::PARAM_STR);
-            $stmt->bindParam(":subject3", $param_subject2, PDO::PARAM_STR);
-            $stmt->bindParam(":subject2", $param_subject3, PDO::PARAM_STR);
-            
+            $stmt->bindParam(":sub", $param_sub, PDO::PARAM_STR);
+           
+
             // Set parameters
             $param_idNumber = $idNumber;
             $param_teacherName = $teacherName;
@@ -180,9 +177,8 @@ if(isset($_POST['addTeacher'])){
             $param_address = $address;
             $param_email = $email;
             $param_password_email = $password;
-            $param_subject1 = $subject1;
-            $param_subject2 = $subject2;
-            $param_subject3 = $subject3;
+            $param_sub = $sub;
+
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             
             //$param_password_verify = password_verify($password, PASSWORD_DEFAULT); 
