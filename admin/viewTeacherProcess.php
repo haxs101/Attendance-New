@@ -4,6 +4,8 @@ require '../vendor/autoload.php';
 //require_once "../database/mailerconfig.php";
 require_once "../database/config.php";
  
+
+
 try {
     $sql = 'SELECT * FROM newteacher';
 

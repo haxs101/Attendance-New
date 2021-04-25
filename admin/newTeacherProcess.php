@@ -5,6 +5,8 @@ require '../vendor/autoload.php';
 require_once "../database/config.php";
 
 
+
+
 //ni_set('memory_limit', '8024M');
  
 // Define variables and initialize with empty values
@@ -160,7 +162,7 @@ if(isset($_POST['addTeacher'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subjects) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :subject1 ',' :subject2)";
+        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subjects, type, attendance) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :subject1 ',' :subject2, 'Teacher', '')";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -228,30 +230,29 @@ if(isset($_POST['addTeacher'])){
 
             //adding table with subject as name
                     try{  
-                        $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject1`(
-                        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                        fullname VARCHAR(30) NOT NULL,
-                        type1 VARCHAR(30) NOT NULL,
-                        email VARCHAR(50),
-                        password VARCHAR(50) NOT NULL,
-                        attendance VARCHAR(10) NOT NULL
-                                )";  
-                            if ($pdo->query($sql2) === TRUE) {
-                                $sql3 = "INSERT INTO `$param_subject1` (fullname, type1, email, password, attendance) VALUES (`$param_teacherName`, 'Teacher', `$param_email`, `$param_password`, 'Present')";
-                                $pdo->execute($sql3);
-                                    echo "Table MyGuests created successfully";
-                                } else {
-                                    echo "Error creating table: " . $pdo->error;
-                            } 
-                
+                        $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject1` AS SELECT id, Name, email, password, type, attendance FROM newteacher";
+                                if ($pdo->query($sql2) === TRUE) {
+                                    
+                                        echo "Table MyGuests created successfully";
+                                    } else {
+                                        echo "Error creating table: " . $pdo->error;
+                                } 
+                    }catch (Exception $e) {
+                    echo 'Caught exception: '. $e->getMessage() ."\n";
+                    }
 
 
-                // $sql = "INSERT INTO $sub (fullname, type1, email, password, attendance) VALUES (:teacherName, 'Teacher', :email, :password, 'Present')";
-
-                }
-                catch (Exception $e) {
-                echo 'Caught exception: '. $e->getMessage() ."\n";
-                }
+                    try{  
+                        $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject2` AS SELECT id, Name, email, password, type, attendance FROM newteacher";
+                                if ($pdo->query($sql2) === TRUE) {
+                                    
+                                        echo "Table MyGuests created successfully";
+                                    } else {
+                                        echo "Error creating table: " . $pdo->error;
+                                } 
+                    }catch (Exception $e) {
+                    echo 'Caught exception: '. $e->getMessage() ."\n";
+                    }
 
 
                
@@ -263,21 +264,6 @@ if(isset($_POST['addTeacher'])){
             unset($stmt);
         }
     }
-
-
-
-
-/** 
-try{
-    $sql = "INSERT INTO `$param_subject1` (fullname, type1, email, password, attendance) VALUES (:teacherName, 'Teacher', :email, :password, 'Present')";
-        if($pdo->execute($sql)){
-            echo "added";
-        }else{
-            echo "error";
-        }
-}catch(Exception $e){
-    echo 'error';
-}*/
     // Close connection
     unset($pdo);
 }

@@ -8,6 +8,7 @@ require 'newTeacherProcess.php';
 
 
 
+
 try{
     
         $sql = "DELETE FROM newteacher WHERE id = '" . $_GET["id"] . "'";  

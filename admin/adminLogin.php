@@ -174,29 +174,26 @@
                             <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
                             <td><?php echo htmlspecialchars($row[5]) ?></td>
                             <td><?php echo htmlspecialchars($row[7]) ?></td>
-                            <td><?php echo htmlspecialchars($row[8]) ?></td>
-                            <td><?php echo htmlspecialchars($row[9]) ?></td>
+                            
                             <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
                         </tr>
                         <?php endwhile; ?>
                         <tr>
                         <?php while ($row = $q->fetch(2)): ?>
-                        <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
-                            <td><?php echo htmlspecialchars($row['2']) ?></td>
-                            <td><?php echo htmlspecialchars($row['3']) ?></td>
-                            <td><?php echo htmlspecialchars($row['4']) ?></td>
-                            <td><?php echo htmlspecialchars($row['5']) ?></td>
+                        <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
+                            <td><?php echo htmlspecialchars($row[5]) ?></td>
+                            <td><?php echo htmlspecialchars($row[7]) ?></td>
+                            d>
                             <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
                         </tr>
                         <?php endwhile; ?>
 
                         <tr>
                         <?php while ($row = $q->fetch(3)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
-                            <td><?php echo htmlspecialchars($row['2']) ?></td>
-                            <td><?php echo htmlspecialchars($row['3']) ?></td>
-                            <td><?php echo htmlspecialchars($row['4']) ?></td>
-                            <td><?php echo htmlspecialchars($row['5']) ?></td>
+                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
+                            <td><?php echo htmlspecialchars($row[5]) ?></td>
+                            <td><?php echo htmlspecialchars($row[7]) ?></td>
+                           
                             <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
 
                         </tr>
@@ -204,11 +201,10 @@
 
                         <tr>
                         <?php while ($row = $q->fetch(4)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
-                            <td><?php echo htmlspecialchars($row['2']) ?></td>
-                            <td><?php echo htmlspecialchars($row['3']) ?></td>
-                            <td><?php echo htmlspecialchars($row['4']) ?></td>
-                            <td><?php echo htmlspecialchars($row['5']) ?></td>
+                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
+                            <td><?php echo htmlspecialchars($row[5]) ?></td>
+                            <td><?php echo htmlspecialchars($row[7]) ?></td>
+                           
                             <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
 
                         </tr>
@@ -216,11 +212,11 @@
 
                         <tr>
                         <?php while ($row = $q->fetch(5)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
-                            <td><?php echo htmlspecialchars($row['2']) ?></td>
-                            <td><?php echo htmlspecialchars($row['3']) ?></td>
-                            <td><?php echo htmlspecialchars($row['4']) ?></td>
-                            <td><?php echo htmlspecialchars($row['5']) ?></td>
+                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
+                            <td><?php echo htmlspecialchars($row[5]) ?></td>
+                            <td><?php echo htmlspecialchars($row[7]) ?></td>
+                            
+                            
                             <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
 
                         </tr>
@@ -228,11 +224,11 @@
 
                         <tr>
                         <?php while ($row = $q->fetch(6)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[1]) ?></th>
-                            <td><?php echo htmlspecialchars($row['2']) ?></td>
-                            <td><?php echo htmlspecialchars($row['3']) ?></td>
-                            <td><?php echo htmlspecialchars($row['4']) ?></td>
-                            <td><?php echo htmlspecialchars($row['5']) ?></td>
+                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
+                            <td><?php echo htmlspecialchars($row[5]) ?></td>
+                            <td><?php echo htmlspecialchars($row[7]) ?></td>
+                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
+
                         </tr>
                         <?php endwhile; ?>
                     </tbody>

@@ -3,7 +3,7 @@
 session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["teacher"] !== true){
+if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true){
     header("location: teacher.php");
     exit;
 }
