@@ -3,7 +3,7 @@
 session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+if(isset($_SESSION["loggedinteacher"]) && $_SESSION["loggedinteacher"] === true){
     header("location: teacher.php");
     exit;
 }
@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             session_start();
                             
                             // Store data in session variables
-                            $_SESSION["loggedin"] = true;
+                            $_SESSION["loggedinteacher"] = true;
                             $_SESSION["idNumber"] = $id;
                             $_SESSION["email"] = $email;                            
                             

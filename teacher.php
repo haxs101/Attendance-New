@@ -3,7 +3,7 @@
 session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["teacher"] !== true){
     header("location: teacher.php");
     exit;
 }
@@ -31,10 +31,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#" id="addStudent" onclick="addStudent()">New Teacher <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#" id="addStudent" onclick="addStudent()">New Student <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" id="viewStudent" onclick="viewStudent()">View Teacher</a>
+        <a class="nav-link" href="#" id="viewStudent" onclick="viewStudent()">View Student</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" id="attendance" onclick="viewAttendance()">Attendance</a>

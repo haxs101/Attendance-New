@@ -80,7 +80,20 @@ if(isset($_POST['addTeacher'])){
         $address = trim($_POST["address"]);
     }
 
-   $subject = $_POST['subject'];
+    if(empty(trim($_POST["subject1"]))){
+        $password_err = "Please enter a address.";     
+    } else{
+        $subject1 = trim($_POST["subject1"]);
+    }
+
+    if(empty(trim($_POST["subject2"]))){
+        $password_err = "Please enter a address.";     
+    } else{
+        $subject2 = trim($_POST["subject2"]);
+    }
+
+  /**
+    $subject = $_POST['subject'];
    $sub = "";
 
    foreach($subject as $sub1)  
@@ -89,7 +102,7 @@ if(isset($_POST['addTeacher'])){
    } 
    //Create table FOR EVRY SUBJECT
 
-  /**  $sql2 = "CREATE TABLE `$sub`(
+    $sql2 = "CREATE TABLE `$sub`(
     id INT(6) AUTO_INCREMENT PRIMARY KEY,
     fullname VARCHAR(30) NOT NULL,
     type1 VARCHAR(30) NOT NULL,
@@ -147,19 +160,9 @@ if(isset($_POST['addTeacher'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subjects) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :sub)";
+        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subjects) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :subject1 ',' :subject2)";
          
-      
-
-        
-
-
-
-
-
-
-
-        if($stmt = $pdo->prepare($sql)){
+           if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
             $stmt->bindParam(":idNumber", $param_idNumber, PDO::PARAM_STR);
@@ -167,8 +170,9 @@ if(isset($_POST['addTeacher'])){
             $stmt->bindParam(":contact", $param_contact, PDO::PARAM_STR);
             $stmt->bindParam(":address", $param_address, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
-            $stmt->bindParam(":sub", $param_sub, PDO::PARAM_STR);
-           
+            $stmt->bindParam(":subject1", $param_subject1, PDO::PARAM_STR);
+            $stmt->bindParam(":subject2", $param_subject2, PDO::PARAM_STR);
+
 
             // Set parameters
             $param_idNumber = $idNumber;
@@ -177,12 +181,17 @@ if(isset($_POST['addTeacher'])){
             $param_address = $address;
             $param_email = $email;
             $param_password_email = $password;
-            $param_sub = $sub;
+            $param_subject1 = $subject1;
+            $param_subject2 = $subject2;
 
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hacheck
             
             //$param_password_verify = password_verify($password, PASSWORD_DEFAULT); 
            
+
+
+
+
             // Attempt to execute the prepared statement
             if($stmt->execute()){
             
@@ -217,12 +226,58 @@ if(isset($_POST['addTeacher'])){
             }
 
 
-            
+            //adding table with subject as name
+                    try{  
+                        $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject1`(
+                        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                        fullname VARCHAR(30) NOT NULL,
+                        type1 VARCHAR(30) NOT NULL,
+                        email VARCHAR(50),
+                        password VARCHAR(50) NOT NULL,
+                        attendance VARCHAR(10) NOT NULL
+                                )";  
+                            if ($pdo->query($sql2) === TRUE) {
+                                $sql3 = "INSERT INTO `$param_subject1` (fullname, type1, email, password, attendance) VALUES (`$param_teacherName`, 'Teacher', `$param_email`, `$param_password`, 'Present')";
+                                $pdo->execute($sql3);
+                                    echo "Table MyGuests created successfully";
+                                } else {
+                                    echo "Error creating table: " . $pdo->error;
+                            } 
+                
+
+
+                // $sql = "INSERT INTO $sub (fullname, type1, email, password, attendance) VALUES (:teacherName, 'Teacher', :email, :password, 'Present')";
+
+                }
+                catch (Exception $e) {
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+
+
+               
+
+
+
+
             // Close statement
             unset($stmt);
         }
     }
-    
+
+
+
+
+/** 
+try{
+    $sql = "INSERT INTO `$param_subject1` (fullname, type1, email, password, attendance) VALUES (:teacherName, 'Teacher', :email, :password, 'Present')";
+        if($pdo->execute($sql)){
+            echo "added";
+        }else{
+            echo "error";
+        }
+}catch(Exception $e){
+    echo 'error';
+}*/
     // Close connection
     unset($pdo);
 }
