@@ -1,7 +1,13 @@
-function addTeacher() {
-    document.getElementById('addTeacher').style.display = 'block';
+//subjectHandled
+//addStudent
+//viewStudent
+//viewAttendance
+
+
+function subjectHandled() {
+    document.getElementById('subjectHandled').style.display = 'block';
     document.getElementById('addStudent').style.display = 'none';
-    document.getElementById('viewTeacher').style.display = 'none';
+    document.getElementById('viewStudent').style.display = 'none';
     document.getElementById('viewAttendance').style.display = 'none';
 
 
@@ -9,21 +15,21 @@ function addTeacher() {
 
 function addStudent() {
     document.getElementById('addStudent').style.display = 'block';
-    document.getElementById('addTeacher').style.display = 'none';
-    document.getElementById('viewTeacher').style.display = 'none';
+    document.getElementById('subjectHandled').style.display = 'none';
+    document.getElementById('viewStudent').style.display = 'none';
     document.getElementById('viewAttendance').style.display = 'none';
 }
 
 function viewAttendance() {
     document.getElementById('addStudent').style.display = 'none';
-    document.getElementById('addTeacher').style.display = 'none';
-    document.getElementById('viewTeacher').style.display = 'none';
+    document.getElementById('subjectHandled').style.display = 'none';
+    document.getElementById('viewStudent').style.display = 'none';
     document.getElementById('viewAttendance').style.display = 'block';
 }
 
-function viewTeacher() {
+function viewStudent() {
     document.getElementById('addStudent').style.display = 'none';
-    document.getElementById('addTeacher').style.display = 'none';
-    document.getElementById('viewTeacher').style.display = 'block';
+    document.getElementById('subjectHandled').style.display = 'none';
+    document.getElementById('viewStudent').style.display = 'block';
     document.getElementById('viewAttendance').style.display = 'none';
 }

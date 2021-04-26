@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($email_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT idNumber, Email, password FROM newteacher WHERE Email = :email";
+        $sql = "SELECT idNumber, Name, Email, password FROM newteacher WHERE Email = :email";
         
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -50,7 +50,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if($stmt->rowCount() == 1){
                     if($row = $stmt->fetch()){
                         $id = $row["idNumber"];
+                        
+                        $name = $row["Name"];
                         $email = $row["Email"];
+                        
                         $hashed_password = $row["password"];
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -59,7 +62,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedinteacher"] = true;
                             $_SESSION["idNumber"] = $id;
-                            $_SESSION["email"] = $email;                            
+                            $_SESSION["email"] = $email; 
+                            $_SESSION["Name"] = $name;
+                                                    
                             
                             // Redirect user to welcome page
                             header("location: teacher.php");

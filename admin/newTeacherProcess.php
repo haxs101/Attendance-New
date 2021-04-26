@@ -235,9 +235,9 @@ if(isset($_POST['addTeacher'])){
                                     
                                         echo "Table MyGuests created successfully";
                                     } else {
-                                        echo "Error creating table: " . $pdo->error;
+                                         echo "Error creating table: " . $pdo->error;
                                 } 
-                    }catch (Exception $e) {
+                    }catch (Exception $e) { 
                     echo 'Caught exception: '. $e->getMessage() ."\n";
                     }
 
@@ -248,6 +248,7 @@ if(isset($_POST['addTeacher'])){
                                     
                                         echo "Table MyGuests created successfully";
                                     } else {
+
                                         echo "Error creating table: " . $pdo->error;
                                 } 
                     }catch (Exception $e) {
