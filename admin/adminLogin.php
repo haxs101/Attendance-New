@@ -144,14 +144,7 @@
             </div>
 
 
-            <div class="col" id="addStudent" style="display:none;" >
-                <h1>Add a Student</h1>
-                Name: <input type="text"> <br>
-                ID #: <input type="text"><br>
-                Address:  <input type="text"><br>
-                Contact: <input type="text"><br>
-                        <input type="submit">
-            </div>
+            
         
         
 
@@ -237,7 +230,7 @@
         
 
 
-            <div class="col" id="viewAttendance" style="display:none;" >
+            <div class="col" id="1viewAttendance" style="display:none;" >
                 <h1>Attendace</h1>
                 Name: <input type="text"> <br>
                 ID #: <input type="text"><br>

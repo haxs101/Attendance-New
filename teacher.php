@@ -47,7 +47,7 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
     <h1>Hello <?php echo htmlspecialchars($_SESSION["Name"]); ?> </h1>
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="adminLogin.php">Home</a>
+    <a class="navbar-brand" href="teacher.php">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -83,9 +83,9 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                     <div class="form-group">
-                        <label>Teacher Name</label>
+                        <label>Student Name</label>
                         <span class="invalid-feedback"><?php echo $added; ?></span> 
-                        <input type="text" name="teacherName" class="form-control" required>
+                        <input type="text" name="studentName" class="form-control" required>
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
                     </div>
 
