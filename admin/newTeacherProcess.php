@@ -89,7 +89,7 @@ if(isset($_POST['addTeacher'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, subjects, type, attendance) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, :subject1 ',' :subject2, 'Teacher', '')";
+        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, type, attendance) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, 'Teacher', '')";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -99,8 +99,7 @@ if(isset($_POST['addTeacher'])){
             $stmt->bindParam(":contact", $param_contact, PDO::PARAM_STR);
             $stmt->bindParam(":address", $param_address, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
-            $stmt->bindParam(":subject1", $param_subject1, PDO::PARAM_STR);
-            $stmt->bindParam(":subject2", $param_subject2, PDO::PARAM_STR);
+          
 
 
             // Set parameters
@@ -110,8 +109,7 @@ if(isset($_POST['addTeacher'])){
             $param_address = $address;
             $param_email = $email;
             $param_password_email = $password;
-            $param_subject1 = $subject1;
-            $param_subject2 = $subject2;
+           
 
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hacheck
             
