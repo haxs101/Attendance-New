@@ -1,6 +1,8 @@
 <?php
 // Initialize the session
 session_start();
+
+require 'addstudent.php';
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true){
@@ -28,14 +30,14 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
     <body>
     <div class="container"  style="padding-top: 20px">
     <?php
-    if(isset($_GET['action']) && $_GET['action'] == 'teacherAdded'){
-                        echo "<h4 class='alert alert-success'>Teacher added successfully!</h4>";
+    if(isset($_GET['action']) && $_GET['action'] == 'studentAdded'){
+                        echo "<h4 class='alert alert-success'>Student added successfully!</h4>";
                     }
                     ?>
 
     <?php
     if(isset($_GET['action']) && $_GET['action'] == 'delete'){
-                        echo "<h4 class='alert alert-danger'>Teacher deleted successfully!</h4>";
+                        echo "<h4 class='alert alert-danger'>Student deleted successfully!</h4>";
                     }
                     ?>
                     
@@ -44,7 +46,7 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
                         echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
                     }
                     ?>
-    <h1>Hello <?php echo htmlspecialchars($_SESSION["Name"]); ?> </h1>
+    <h1>Hello Teacher <?php echo htmlspecialchars(ucwords($_SESSION["Name"])) ; ?>! </h1>
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="teacher.php">Home</a>
@@ -96,6 +98,12 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
                     </div>
 
                     <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" name="subject" class="form-control" required>
+                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                    </div>
+
+                    <div class="form-group">
                         <label>Address</label>
                         <input type="text" name="address" class="form-control" required>
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
@@ -106,18 +114,7 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
                         <input type="text" name="contact" class="form-control" required>
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
                     </div>
-                    <!-- SUBJECTS -->
-                    <div class="form-group">
-                        <label>Subjects</label>
-                        <input type="text" name="subject1" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
-                    </div>
-
-                    <div class="form-group">
-                        
-                        <input type="text" name="subject2" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
-                    </div>
+                   
 
                     <div class="form-group">
                         <label>Email</label>
@@ -129,12 +126,12 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
                     
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                        <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="">
                         <span class="invalid-feedback"><?php echo $password_err; ?></span>
                     </div>
                     
                     <div class="form-group">
-                        <input type="submit" name="addTeacher" class="btn btn-primary" value="Submit">
+                        <input type="submit" name="addStudent" class="btn btn-primary" value="Submit">
                         
                     </div>
                     

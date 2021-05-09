@@ -82,81 +82,8 @@ if(isset($_POST['addTeacher'])){
         $address = trim($_POST["address"]);
     }
 
-    if(empty(trim($_POST["subject1"]))){
-        $password_err = "Please enter a address.";     
-    } else{
-        $subject1 = trim($_POST["subject1"]);
-    }
+   
 
-    if(empty(trim($_POST["subject2"]))){
-        $password_err = "Please enter a address.";     
-    } else{
-        $subject2 = trim($_POST["subject2"]);
-    }
-
-  /**
-    $subject = $_POST['subject'];
-   $sub = "";
-
-   foreach($subject as $sub1)  
-   {  
-      $sub .= $sub1.",";  
-   } 
-   //Create table FOR EVRY SUBJECT
-
-    $sql2 = "CREATE TABLE `$sub`(
-    id INT(6) AUTO_INCREMENT PRIMARY KEY,
-    fullname VARCHAR(30) NOT NULL,
-    type1 VARCHAR(30) NOT NULL,
-    email VARCHAR(50),
-    password VARCHAR(50) NOT NULL,
-    attendance VARCHAR(10)  NOT NULL
-        )";  
-        if ($pdo->query($sql2) === TRUE) {
-                echo "Table MyGuests created successfully";
-                $sql3 = "INSERT INTO `$sub`(fullname, type, email, password, attendance) VALUES (:teacherName, Teacher, :email, :password, PRESENT)";
-                if ($pdo->query($sql3) === TRUE) {
-                    echo "ADDED";
-                }else{
-                    echo "Errorr";
-                }
-            } else {
-                echo "Error creating table: " . $pdo->error;
-        }
-
-
-
-       
-
-    $sql2 = "CREATE TABLE `$subl`(
-        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        firstname VARCHAR(30) NOT NULL,
-        lastname VARCHAR(30) NOT NULL,
-        email VARCHAR(50),
-        password VARCHAR(50) NOT NULL,
-        attendance VARCHAR(10)  NOT NULL
-            )";  
-            if ($pdo->query($sql2) === TRUE) {
-                    echo "Table MyGuests created successfully";
-                } else {
-                    echo "Error creating table: " . $pdo->error;
-            }
-    
-        $sql2 = "CREATE TABLE `$cs123`(
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            firstname VARCHAR(30) NOT NULL,
-            lastname VARCHAR(30) NOT NULL,
-            email VARCHAR(50),
-            password VARCHAR(50) NOT NULL,
-            attendance VARCHAR(10) NOT NULL
-                    )";  
-                if ($pdo->query($sql2) === TRUE) {
-                        echo "Table MyGuests created successfully";
-                    } else {
-                        echo "Error creating table: " . $pdo->error;
-                }
-        
-*/
    
     // Check input errors before inserting in database
     if(empty($email_err) && empty($password_err)){
@@ -228,32 +155,7 @@ if(isset($_POST['addTeacher'])){
             }
 
 
-            //adding table with subject as name
-                    try{  
-                        $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject1` AS SELECT id, Name, email, password, type, attendance FROM newteacher";
-                                if ($pdo->query($sql2) === TRUE) {
-                                    
-                                        echo "Table MyGuests created successfully";
-                                    } else {
-                                         echo "Error creating table: " . $pdo->error;
-                                } 
-                    }catch (Exception $e) { 
-                    echo 'Caught exception: '. $e->getMessage() ."\n";
-                    }
-
-
-                    try{  
-                        $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject2` AS SELECT id, Name, email, password, type, attendance FROM newteacher";
-                                if ($pdo->query($sql2) === TRUE) {
-                                    
-                                        echo "Table MyGuests created successfully";
-                                    } else {
-
-                                        echo "Error creating table: " . $pdo->error;
-                                } 
-                    }catch (Exception $e) {
-                    echo 'Caught exception: '. $e->getMessage() ."\n";
-                    }
+          
 
 
                
