@@ -1,8 +1,75 @@
 <?php
 session_start();
-if(isset($_SESSION['SESS_FIRST_NAME'])&&!isset($_SESSION['SESS_FIRST_NAME'])) {
-    header("Location:home.php"); // redirects them to homepage
-    exit; // for good measure
+require_once "database/config.php";
+ 
+// Define variables and initialize with empty values
+$email = $password = "";
+$email_err = $password_err = $login_err = "";
+ 
+// Processing form data when form is submitted
+if(isset($_POST['studentLogin'])){
+ 
+    // Check if email is empty
+                if(empty(trim($_POST["idNumber"]))){
+                    $email_err = "Please enter ID Number.";
+                } else{
+                    $idnumber = trim($_POST["idNumber"]);
+                }
+                
+                // Check if password is empt
+                
+                // Validate credentials
+                if(empty($email_err)){
+                    // Prepare a select statement
+                    $sql = "SELECT idNumber, Name FROM newstudent WHERE idNumber = :idNumber";
+                    
+                    if($stmt = $pdo->prepare($sql)){
+                        // Bind variables to the prepared statement as parameters
+                        $stmt->bindParam(":idNumber", $param_idNumber, PDO::PARAM_STR);
+                        
+                        // Set parameters
+                        $param_idNumber = trim($_POST["idNumber"]);
+                        
+                        // Attempt to execute the prepared statement
+                        if($stmt->execute()){
+                            // Check if email exists, if yes then verify password
+                            if($stmt->rowCount() == 1){
+                                if($row = $stmt->fetch()){
+                                    $id = $row["idNumber"];
+                                    
+                                    $name = $row["Name"];
+                                        // Password is correct, so start a new session
+                                        session_start();
+                                        
+                                        // Store data in session variables
+                                        $_SESSION["studentLogin"] = true;
+                                        $_SESSION["idNumber"] = $id;
+                                        
+                                        $_SESSION["Name"] = $name;
+                                                                
+                                        
+                                        // Redirect user to welcome page
+                                        header("location: groups/studentview.php");
+                                    } else{
+                                        // Password is idNumbert valid, display a generic error message
+                                        $login_err = "Invalid email or password. Please try again! ";
+                                    }
+                                }
+                             else{
+                                // email doesn't exist, display a generic error message
+                                $login_err = "No record found. Please try again!";
+                            }
+                        } else{
+                            echo "Oops! Something went wrong. Please try again later.";
+                        }
+
+                        // Close statement
+                        unset($stmt);
+                    }
+                
+            }
+                // Close connection
+                unset($pdo);
 }
 ?>
 
@@ -45,20 +112,21 @@ if(isset($_SESSION['SESS_FIRST_NAME'])&&!isset($_SESSION['SESS_FIRST_NAME'])) {
                         <div class="card-body">
                             <!--Header-->
                             <div class="form-header default-color text-center">
-                                <h3><img src="./icons/student-portal.png"></h3>
+                                <h3>Student Login</h3>
                             </div>
+                            <?php 
+                                    if(!empty($login_err)){
+                                        echo '<div class="alert alert-danger">' . $login_err . '</div>';
+                                    }        
+                            ?>
                             <!--Body-->
-                            <form action="login_exec.php" name="login" method="post">
+                            <form action="" name="login" method="post">
                                 <div class="md-form">
                                     <i class="fa fa-id-card prefix grey-text"></i>
-                                    <input id="cyanForm-email" class="form-control" type="text" name="roll_no" required>
+                                    <input id="cyanForm-email" class="form-control" type="text" name="idNumber" required>
                                     <label for="cyanForm-email">Enrollment Number</label>
                                 </div>
-                                <div class="md-form">
-                                    <i class="fa fa-lock prefix grey-text"></i>
-                                    <input id="cyanForm-pass" class="form-control" type="password" name="password" required>
-                                    <label for="cyanForm-pass">Your password</label>
-                                </div>
+                               
                                 <?php                         
                                     if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ) {
                                     echo "<script>alert('Enrollment no or Password do not match');</script>";
@@ -66,7 +134,7 @@ if(isset($_SESSION['SESS_FIRST_NAME'])&&!isset($_SESSION['SESS_FIRST_NAME'])) {
                                     }
                                 ?>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-default waves-effect waves-light">Student Login</button>
+                                    <button type="submit" name="studentLogin" class="btn btn-default waves-effect waves-light">Student Login</button>
                                     <a href="loginteacher.php" class="btn btn-deep-orange waves-effect waves-light">Teacher Login</a> 
                                     <a href="admin.php" class="btn btn-primary waves-effect waves-light">Admin Login</a>    
                                 </div>
