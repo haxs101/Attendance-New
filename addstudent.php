@@ -95,7 +95,7 @@ if(isset($_POST['addStudent'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject)";
+        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, date) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, '')";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -161,7 +161,7 @@ if(isset($_POST['addStudent'])){
                 
             //adding table with subject as name
             try{  
-                $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject` AS SELECT id, Name, email, password FROM newstudent";
+                $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject` AS SELECT Name, email, password FROM newstudent";
                         if ($pdo->query($sql2) === TRUE) {
                             
                                 echo "Table MyGuests created successfully";
