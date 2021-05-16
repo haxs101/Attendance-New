@@ -13,9 +13,19 @@ require '../database/config.php';
 if(isset($_POST['checkin'])){
     date_default_timezone_set('Asia/Manila');
     $date = date("Y-m-d H:i:s");
-    $sql = "UPDATE newstudent SET date=('$date')";
+    $sql = "UPDATE newstudent SET date=('$date') WHERE idNumber = ($_SESSION[idNumber]) ";
     $insertdate = $pdo->prepare($sql);
     $insertdate->execute();
+
+    try{
+        $sql2 = "INSERT INTO student_attendance_record (idNumber, attendance) SELECT idNumber, date FROM newstudent WHERE idNumber = ($_SESSION[idNumber])";
+        $a = $pdo->prepare($sql2);
+        $a->execute();
+
+        }catch (Exception $e) { 
+        echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
+    
 }
 
 
