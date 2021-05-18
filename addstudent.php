@@ -13,6 +13,7 @@ require_once "./database/config.php";
 $email = $password  = "";
 $email_err = $password_err = "";
 $added = "";
+$date = date("Y-m-d H:i:s");
  
 // Processing form data when form is submitted
 if(isset($_POST['addStudent'])){
@@ -95,7 +96,7 @@ if(isset($_POST['addStudent'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, date) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, '')";
+        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, date) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, ('$date'))";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -106,7 +107,7 @@ if(isset($_POST['addStudent'])){
             $stmt->bindParam(":address", $param_address, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
             $stmt->bindParam(":subject", $param_subject, PDO::PARAM_STR);
-          
+
 
 
             // Set parameters

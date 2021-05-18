@@ -173,8 +173,6 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
                             <th scope="row"><?php echo htmlspecialchars($row['Name']) ?></th>
                             <td><?php echo htmlspecialchars($row['subject']) ?></td>
                             <td><?php echo htmlspecialchars($row['attendance']) ?></td>
-                            
-                            <td><a href="deleteProcess.php?id=<?php echo $row[idNumber]; ?>"><img src="icons/delete.svg"></a></td>
                         </tr>
                         <?php endwhile; ?>
                         
