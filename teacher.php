@@ -3,6 +3,7 @@
 session_start();
 
 require 'addstudent.php';
+require 'viewAttendanceConfig.php';
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true){
@@ -154,81 +155,29 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
         
 
             <div class="col" id="viewStudent" style="display:none;" >
-                <h1 style="text-align:center">View Teacher</h1>
+                <h1 style="text-align:center">View Student</h1>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Subject</th>
                         
-                        <th scope="col">Subjects Handled</th>
+                        <th scope="col">Attendance</th>
                         
                     
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($row = $q->fetch(1)): ?>
+                    <?php while ($row = $q->fetch()): ?>
                         <tr>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[7]) ?></td>
+                            <th scope="row"><?php echo htmlspecialchars($row['Name']) ?></th>
+                            <td><?php echo htmlspecialchars($row['subject']) ?></td>
+                            <td><?php echo htmlspecialchars($row['attendance']) ?></td>
                             
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
+                            <td><a href="deleteProcess.php?id=<?php echo $row[idNumber]; ?>"><img src="icons/delete.svg"></a></td>
                         </tr>
                         <?php endwhile; ?>
-                        <tr>
-                        <?php while ($row = $q->fetch(2)): ?>
-                        <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[7]) ?></td>
-                            d>
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(3)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[7]) ?></td>
-                           
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(4)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[7]) ?></td>
-                           
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(5)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[7]) ?></td>
-                            
-                            
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(6)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[7]) ?></td>
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
+                        
                     </tbody>
                 </table>
             </div>
