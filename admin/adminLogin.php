@@ -20,12 +20,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM8KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn8W3mgPxhU9K/ScQsAP8hUibX39j8fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+86PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="app.js"></script>
+         <script src="app.js"></script>
         <title>Admin Page</title>
+        
     </head>
     <body>
     <div class="container"  style="padding-top: 20px">
@@ -144,75 +145,27 @@
                         <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Type</th>
                         
-                        <th scope="col">Subjects Handled</th>
+                       
                         
                     
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($row = $q->fetch(1)): ?>
+                    <?php while ($row = $q->fetch()): ?>
                         <tr>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[8]) ?></td>
-                            
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
+                            <th scope="row"><?php echo htmlspecialchars(ucwords($row['Name']) )?></th>
+                            <td><?php echo htmlspecialchars($row['Email']) ?></td>
+                            <td><?php echo htmlspecialchars(ucwords($row['Address']) )?></td>
+                            <td><?php echo htmlspecialchars($row['Contact']) ?></td>
+                            <td><?php echo htmlspecialchars(ucwords($row['type'])) ?></td>
+                            <td><a href="deleteProcess.php?id=<?php echo $row['id']; ?>"><img src="../icons/delete.svg" alt="Delete Teacher" loading="lazy"></a></td>
                         </tr>
                         <?php endwhile; ?>
-                        <tr>
-                        <?php while ($row = $q->fetch(2)): ?>
-                        <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[8]) ?></td>
-                            d>
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(3)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[8]) ?></td>
-                           
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(4)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[8]) ?></td>
-                           
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(5)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[8]) ?></td>
-                            
-                            
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
-
-                        <tr>
-                        <?php while ($row = $q->fetch(6)): ?>
-                            <th scope="row"><?php echo htmlspecialchars($row[2]) ?></th>
-                            <td><?php echo htmlspecialchars($row[5]) ?></td>
-                            <td><?php echo htmlspecialchars($row[8]) ?></td>
-                            <td><a href="deleteProcess.php?id=<?php echo $row[0]; ?>"><img src="../icons/delete.svg"></a></td>
-
-                        </tr>
-                        <?php endwhile; ?>
+                
                     </tbody>
                 </table>
             </div>

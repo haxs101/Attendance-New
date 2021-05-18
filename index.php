@@ -124,7 +124,7 @@ if(isset($_POST['studentLogin'])){
                                 <div class="md-form">
                                     <i class="fa fa-id-card prefix grey-text"></i>
                                     <input id="cyanForm-email" class="form-control" type="text" name="idNumber" required>
-                                    <label for="cyanForm-email">Enrollment Number</label>
+                                    <label for="cyanForm-email">ID Number</label>
                                 </div>
                                
                                 <?php                         
