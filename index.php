@@ -89,7 +89,7 @@ if(isset($_POST['studentLogin'])){
     <link href="css/main.css" rel="stylesheet">
     <style rel="stylesheet">
         body {
-            background-image: url('./icons/1.jpg');
+            background-image:  linear-gradient(to right, #ff8080, #ffffcc )
         } 
         main {
             padding-top: 4rem;
@@ -107,10 +107,15 @@ if(isset($_POST['studentLogin'])){
                 </div>
                 
                 <div class="col-md-6 mb-r">    
+                <div class="form-header default-color text-center">
+                                <h1>Attendance Management System</h1>
+                            </div>
                     <!--Form without header-->
                     <div class="card">
                         <div class="card-body">
                             <!--Header-->
+                            
+
                             <div class="form-header default-color text-center">
                                 <h3>Student Login</h3>
                             </div>

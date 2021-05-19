@@ -138,6 +138,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <?php 
                                     if(!empty($login_err)){
                                         echo '<div class="alert alert-danger">' . $login_err . '</div>';
+                                        
                                     }        
                             ?>
                             <!--Body-->
