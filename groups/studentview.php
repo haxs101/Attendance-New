@@ -29,7 +29,7 @@ if(isset($_POST['checkin'])){
         echo 'Caught exception: '. $e->getMessage() ."\n";
         }
 
-        
+// /~2-EBKQ][ha&Ry9V       
     
 }
 
