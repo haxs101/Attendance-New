@@ -131,7 +131,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="card-body">
                             <!--Header-->
                             <div class="form-header default-color text-center">
-                                <h3> Teacher Login</h3>
+                                <h3> Teacher Email</h3>
                             </div>
                             
                             <!--Error Message-->
