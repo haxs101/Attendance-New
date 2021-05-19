@@ -163,7 +163,7 @@ if(isset($_POST['addStudent'])){
                 
             //adding table with subject as name
             try{  
-                $sql2 = "CREATE TABLE IF NOT EXISTS `$param_subject` AS SELECT Name, email, password FROM newstudent";
+                $sql2 = "INSERT INTO teacher_subjects SELECT idNumber, Name, subject, teacher FROM newstudent";
                         if ($pdo->query($sql2) === TRUE) {
                             
                                 echo "Table MyGuests created successfully";
@@ -173,9 +173,10 @@ if(isset($_POST['addStudent'])){
             }catch (Exception $e) { 
             echo 'Caught exception: '. $e->getMessage() ."\n";
             }
+            
 
            
-               
+           
 
 
 

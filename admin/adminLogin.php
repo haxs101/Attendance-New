@@ -48,7 +48,7 @@
                         echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
                     }
                     ?>
-    <h1>Hello admin <?php echo htmlspecialchars(ucwords($_SESSION["username"])); ?> </h1>
+    
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="adminLogin.php">Home</a>
@@ -72,6 +72,17 @@
         </ul>
     </div>
     </nav>
+
+    <div class="jumbotron" id="homee">
+        <h1 class="display-4">Hello admin <?php echo htmlspecialchars(ucwords($_SESSION["username"])); ?>!</h1>
+        <p class="lead">This is the homepage for admins! You can add, view teacher from the nav bar.</p>
+        <hr class="my-4">
+        <p>Request a feature!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="mailto:mrbaslote@gmail.com" role="button">Contact</a>
+        </p>
+    </div>
+
         <div class="row">
         
     
@@ -203,6 +214,9 @@
     
     </div>
 
+<?php
 
+include '../footer.php';
+?>
     </body>
     </html>

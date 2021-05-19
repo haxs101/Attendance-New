@@ -4,6 +4,7 @@ session_start();
 
 require 'addstudent.php';
 require 'viewAttendanceConfig.php';
+require 'viewTeacherSubjectHandled.php';
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true){
@@ -48,8 +49,8 @@ if(isset($_POST['timein'])){
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="app.js"></script>
 
-        <script src="app.js"></script>
         <title>Teacher Page</title>
     </head>
     <body>
@@ -78,7 +79,7 @@ if(isset($_POST['timein'])){
                         echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
                     }
                     ?>
-    <h1>Hello Teacher <?php echo htmlspecialchars(ucwords($_SESSION["Name"])) ; ?>! </h1>
+    
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="teacher.php">Home</a>
@@ -94,7 +95,10 @@ if(isset($_POST['timein'])){
             <a class="nav-link" href="#" id="showStudent1" onclick="viewStudent()">View Student</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" id="subject" onclick="subjectHandled()">Teacher Attendance</a>
+            <a class="nav-link" href="#" id="takeAttendance1" onclick="teacherAttendance()">Teacher Attendance</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" id="subjectHandle1" onclick="subjectHandled()">Subject Handled</a>
         </li>
      
         <li class="nav-item">
@@ -103,6 +107,15 @@ if(isset($_POST['timein'])){
         </ul>
     </div>
     </nav>
+    <div class="jumbotron" id="homee">
+        <h1 class="display-4">Hello Teacher <?php echo htmlspecialchars(ucwords($_SESSION["Name"])) ; ?>! </h1>
+        <p class="lead">This is the homepage for teachers! You can add, view students from the nav bar.</p>
+        <hr class="my-4">
+        <p>Request a feature!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="mailto:mrbaslote@gmail.com" role="button">Contact</a>
+        </p>
+    </div>
         <div class="row">
         
     
@@ -172,7 +185,7 @@ if(isset($_POST['timein'])){
             </div>
 
 
-            <div class="col" id="subjectHandled" style="display:none;" >
+            <div class="col" id="teacherAttendance" style="display:none;" >
                     <h1 style="text-align:center">Take attendance</h1>
 
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
@@ -236,13 +249,40 @@ if(isset($_POST['timein'])){
                 </table>
             </div>
         
-
-
+            <div class="col" id="subjectHandled" style="display:none;" >
+            <h1 style="text-align:center">Subjects Handled</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">Subject</th>
+                      
+                        
+                        
+                        
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php while ($row = $q2->fetch()): ?>
+                        <tr>
+                            <th scope="row"><?php echo htmlspecialchars($row['subject']) ?></th>
+                            
+                           
+                           
+                        </tr>
+                        <?php endwhile; ?>
+                        
+                    </tbody>
+                </table>
+            </div>
           
         
     
     </div>
 
+   <?php
 
+   include 'footer.php';
+   ?>
     </body>
     </html>

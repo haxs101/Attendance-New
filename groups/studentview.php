@@ -59,12 +59,10 @@ try {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <title>Document</title>
+    <title>Student <?php echo htmlspecialchars(ucwords($_SESSION["Name"])); ?>!</title>
 
     <style>
-    h1{
-        text-align: center;
-    }
+    
    .subjects1{
         text-decoration:underline;
    }
@@ -78,26 +76,54 @@ try {
 
 
 <div class="container" style="padding-top: 50px">
-
-
-    <h1>Hello Student <?php echo htmlspecialchars(ucwords($_SESSION["Name"])) ; ?>!  <a href="../logout.php" class="btn btn-danger">logout</a></h1>
-    
-
-    
-
-        <h1 class="subjects1"> Your Subjects!</h1>
-<!-- Alert success adding -->
-        <?php
+  <!-- Alert success adding -->
+  <?php
             if(isset($_GET['action']) && $_GET['action'] == 'added'){
                         echo "<h4 class='alert alert-success'>Your attendance has been recorded!</h4>";
                     }
         ?>
+    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="studentview.php">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+
+            <li class="nav-item">
+                <a href="../logout.php" class="btn btn-danger">Logout</a>
+            </li>
+        <li class="nav-item"></li>
+            </ul>
+        
+        </div>
+    </nav>
 
 
-        <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><?php while ($row = $q->fetch()): ?>
-                <h3><?php echo htmlspecialchars(strtoupper($row['subject']) )?></h3>
+    <div class="jumbotron" id="homee">
+            <h1 class="display-4">Hello Student <?php echo htmlspecialchars(ucwords($_SESSION["Name"])); ?>!! </h1>
+            <p class="lead">This is the homepage for students! Take your attendance here!</p>
+            <hr class="my-4">
+            
+        <h2 class="subjects1"> Your Subjects!</h2>
+            <p class="lead">
+                   <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal"><?php while ($row = $q->fetch()): ?>
+                <h3><?php echo htmlspecialchars(ucwords($row['subject']) )?></h3>
         <?php endwhile; ?></button>
+            </p>
+    </div>
+
+
+
+    
+
+    
+
+  
+
+
+    
 
         <!-- Modal -->
         <div id="myModal" class="modal fade" role="dialog">
@@ -129,7 +155,10 @@ try {
         
 </div>
 
+<?php
 
+include '../footer.php';
+?>
 </body>
 
 </html>
