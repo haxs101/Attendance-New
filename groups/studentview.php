@@ -66,6 +66,8 @@ try {
    .subjects1{
         text-decoration:underline;
    }
+
+   
     </style>
 </head>
 <body>
@@ -82,7 +84,7 @@ try {
                         echo "<h4 class='alert alert-success'>Your attendance has been recorded!</h4>";
                     }
         ?>
-    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd; padding-bottom: 20px">
         <a class="navbar-brand" href="studentview.php">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
