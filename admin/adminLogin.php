@@ -4,6 +4,7 @@
     
     require 'newTeacherProcess.php';
     require 'viewTeacherProcess.php';
+    require 'adminViewAttendance.php';
    
     // Check if the user is logged in, if not then redirect him to login page
     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -47,7 +48,7 @@
                         echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
                     }
                     ?>
-    <h1>Hello <?php echo htmlspecialchars($_SESSION["username"]); ?> </h1>
+    <h1>Hello admin <?php echo htmlspecialchars(ucwords($_SESSION["username"])); ?> </h1>
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="adminLogin.php">Home</a>
@@ -148,6 +149,7 @@
                         <th scope="col">Address</th>
                         <th scope="col">Contact</th>
                         <th scope="col">Type</th>
+                        <th scope="col">Action</th>
                         
                        
                         
@@ -158,7 +160,7 @@
                     <?php while ($row = $q->fetch()): ?>
                         <tr>
                             <th scope="row"><?php echo htmlspecialchars(ucwords($row['Name']) )?></th>
-                            <td><?php echo htmlspecialchars($row['Email']) ?></td>
+                            <td><a href="mailto:<?php echo htmlspecialchars($row['Email']) ?>"><?php echo htmlspecialchars($row['Email']) ?></td>
                             <td><?php echo htmlspecialchars(ucwords($row['Address']) )?></td>
                             <td><?php echo htmlspecialchars($row['Contact']) ?></td>
                             <td><?php echo htmlspecialchars(ucwords($row['type'])) ?></td>
@@ -172,13 +174,30 @@
         
 
 
-            <div class="col" id="1viewAttendance" style="display:none;" >
-                <h1>Attendace</h1>
-                Name: <input type="text"> <br>
-                ID #: <input type="text"><br>
-                    Address:  <input type="text"><br>
-                        Contact: <input type="text"><br>
-                        <input type="submit">
+            <div class="col" id="viewAttendance" style="display:none;" >
+            <h1 style="text-align:center">View Teacher Attendance</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID Number</th>
+                        <th scope="col">Name</th>
+                        
+                        <th scope="col">Attendance</th>
+                        
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php while ($row = $q1->fetch()): ?>
+                        <tr>
+                            <th scope="row"><?php echo htmlspecialchars($row['idNumber']) ?></th>
+                            <td><?php echo htmlspecialchars(ucwords($row['Name'])) ?></td>
+                            <td><?php echo htmlspecialchars($row['attendance']) ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                        
+                    </tbody>
+                </table>
             </div>
         
     

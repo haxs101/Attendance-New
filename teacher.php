@@ -11,6 +11,29 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
     exit;
 }
 
+if(isset($_POST['timein'])){
+    date_default_timezone_set('Asia/Manila');
+    $date = date("Y-m-d H:i:s");
+    $sql = "UPDATE newteacher SET attendance=('$date') WHERE idNumber = ($_SESSION[idNumber]) ";
+    $insertdate = $pdo->prepare($sql);
+    $insertdate->execute();
+
+    try{
+        $sql2 = "INSERT INTO teacher_attendance_record (idNumber, Name, attendance, Email ) SELECT idNumber, Name, attendance, Email FROM newteacher WHERE idNumber = ($_SESSION[idNumber])";
+        $a = $pdo->prepare($sql2);
+        $a->execute();
+
+        header("Location: teacher.php?action=attendanceAdded");
+
+
+        }catch (Exception $e) { 
+        echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
+
+        
+    
+}
+
 ?>
 
 
@@ -21,10 +44,11 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
         <script src="app.js"></script>
         <title>Teacher Page</title>
     </head>
@@ -37,6 +61,13 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
                     ?>
 
     <?php
+     if(isset($_GET['action']) && $_GET['action'] == 'attendanceAdded'){
+        echo "<h4 class='alert alert-success'>Your attendance has been recorded!</h4>";
+    }
+    ?>
+
+<?php
+    
     if(isset($_GET['action']) && $_GET['action'] == 'delete'){
                         echo "<h4 class='alert alert-danger'>Student deleted successfully!</h4>";
                     }
@@ -63,11 +94,9 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
             <a class="nav-link" href="#" id="showStudent1" onclick="viewStudent()">View Student</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" id="subject" onclick="subjectHandled()">View Student</a>
+            <a class="nav-link" href="#" id="subject" onclick="subjectHandled()">Teacher Attendance</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" id="attendance1" onclick="viewAttendance()">Attendance</a>
-        </li>
+     
         <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>
         </li>
@@ -144,18 +173,45 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
 
 
             <div class="col" id="subjectHandled" style="display:none;" >
-                <h1>Add a Student</h1>
-                Name: <input type="text"> <br>
-                ID #: <input type="text"><br>
-                Address:  <input type="text"><br>
-                Contact: <input type="text"><br>
-                        <input type="submit">
+                    <h1 style="text-align:center">Take attendance</h1>
+
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+                        <h3>Time in</h3>
+                    </button>
+
+                    <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">Check in!</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <p>Click the button below to take attendance!</p>
+
+                            
+
+                                <input type="submit" name="timein" class="btn btn-primary">
+                            </form>
+                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
             </div>
         
         
 
             <div class="col" id="viewStudent" style="display:none;" >
                 <h1 style="text-align:center">View Student</h1>
+                <p style="text-align:center; font-style:italic"> Note: Student's who did not submit attendance will not display here.</p>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -182,14 +238,7 @@ if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true
         
 
 
-            <div class="col" id="viewAttendance" style="display:none;" >
-                <h1>Attendace</h1>
-                Name: <input type="text"> <br>
-                ID #: <input type="text"><br>
-                    Address:  <input type="text"><br>
-                        Contact: <input type="text"><br>
-                        <input type="submit">
-            </div>
+          
         
     
     </div>

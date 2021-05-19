@@ -14,6 +14,7 @@ $email = $password  = "";
 $email_err = $password_err = "";
 $added = "";
 $date = date("Y-m-d H:i:s");
+$teacher =  $_SESSION["Name"];
  
 // Processing form data when form is submitted
 if(isset($_POST['addStudent'])){
@@ -96,7 +97,7 @@ if(isset($_POST['addStudent'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, date) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, ('$date'))";
+        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, date, teacher) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, ('$date'), ('$teacher'))";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters

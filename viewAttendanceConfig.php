@@ -3,7 +3,7 @@ require 'addstudent.php';
 
 
 try {
-    $sql3 = "SELECT * FROM student_attendance_record";
+    $sql3 = "SELECT * FROM student_attendance_record where teacher = ('$teacher')";
 
     $q = $pdo->query($sql3);
 
