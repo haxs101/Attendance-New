@@ -48,6 +48,11 @@
                         echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
                     }
                     ?>
+                     <?php
+    if(isset($_GET['action']) && $_GET['action'] == 'errorPassword'){
+                        echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
+                    }
+                    ?>
     
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
@@ -175,7 +180,8 @@
                             <td><?php echo htmlspecialchars(ucwords($row['Address']) )?></td>
                             <td><?php echo htmlspecialchars($row['Contact']) ?></td>
                             <td><?php echo htmlspecialchars(ucwords($row['type'])) ?></td>
-                            <td><a href="deleteProcess.php?id=<?php echo $row['id']; ?>"><img src="../icons/delete.svg" alt="Delete Teacher" loading="lazy"></a></td>
+                            <td><a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteProcess.php?id=<?php echo $row['id']; ?>"><img src="../icons/delete.svg" alt="Delete Teacher"></a></td>
+                           
                         </tr>
                         <?php endwhile; ?>
                 
@@ -210,9 +216,11 @@
                     </tbody>
                 </table>
             </div>
-        
-    
+  
     </div>
+
+
+
 
 <?php
 

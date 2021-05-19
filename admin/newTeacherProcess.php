@@ -54,6 +54,7 @@ if(isset($_POST['addTeacher'])){
         $password_err = "Please enter a password.";     
     } elseif(strlen(trim($_POST["password"])) < 4){
         $password_err = "Password must have atleast 4 characters.";
+        header("location: adminLogin.php?action=errorPassword");
     } else{
         $password = trim($_POST["password"]);
     }

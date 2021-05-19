@@ -18,3 +18,8 @@ function viewTeacher() {
   document.getElementById("viewAttendance").style.display = "none";
   document.getElementById("homee").style.display = "none";
 }
+
+function confirmationDelete(anchor) {
+  var conf = confirm("Are you sure want to delete this teacher?");
+  if (conf) window.location = anchor.attr("href");
+}

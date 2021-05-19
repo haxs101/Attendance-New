@@ -195,26 +195,27 @@ if(isset($_POST['timein'])){
                     <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                    <div class="modal-header">
-                    <h4 class="modal-title">Check in!</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        
-                    </div>
-                    <div class="modal-body">
-                        <form method="post">
-                            <p>Click the button below to take attendance!</p>
-
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                        <div class="modal-header">
+                        <h4 class="modal-title">Check in!</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                             
-
-                                <input type="submit" name="timein" class="btn btn-primary">
-                            </form>
-                    </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
-                    </div>
+                        <div class="modal-body">
+                            <form method="post">
+                                <p>Click the button below to take attendance!</p>
+
+                                
+
+                                    <input type="submit" name="timein" class="btn btn-primary">
+                                </form>
+                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <!-- End Modal content-->
 
             </div>
         </div>
