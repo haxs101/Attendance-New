@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Contact</label>
+                        <label>Contact No.</label>
                         <input type="text" name="contact" class="form-control" required>
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
                     </div>
@@ -128,6 +128,9 @@
                     <div class="form-group">
                         <label>Email</label>
                         <input type="text" name="email" class="form-control" required>
+                            <small id="passwordHelpInline" class="text-muted">
+                                 Credentials will be sent to this email address.
+                            </small>
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
                     </div>
 
@@ -136,6 +139,9 @@
                     <div class="form-group">
                         <label>Password</label>
                         <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                            <small id="passwordHelpInline" class="text-muted">
+                                 Must be 4-20 characters long.
+                            </small>
                         <span class="invalid-feedback"><?php echo $password_err; ?></span>
                     </div>
                     
