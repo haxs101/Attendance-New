@@ -89,7 +89,7 @@ if(isset($_POST['studentLogin'])){
     <link href="css/main.css" rel="stylesheet">
     <style rel="stylesheet">
         body {
-            background-image:  linear-gradient(to right, #ff8080, #ffffcc )
+            background-image:  linear-gradient(to left, #ccffdd, #ffffcc )
         } 
         main {
             padding-top: 4rem;
