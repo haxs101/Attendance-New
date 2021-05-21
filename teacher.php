@@ -172,6 +172,9 @@ if(isset($_POST['timein'])){
                     <div class="form-group">
                         <label>Email</label>
                         <input type="text" name="email" class="form-control" required>
+                            <small id="passwordHelpInline" class="text-muted">
+                                    Credentials will be sent to this email address.
+                            </small>
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
                     </div>
 
