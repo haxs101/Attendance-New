@@ -86,6 +86,13 @@ if(isset($_POST['timein'])){
                         echo "<h5 class='alert alert-danger'>Seems there is an error. Please try again!</h5>";
                     }
                     ?>
+
+<?php
+    if(isset($_GET['action']) && $_GET['action'] == 'errorTaken'){
+                        echo "<h5 class='alert alert-warning'>Seems there is an error. Please try again!</h5>";
+                    }
+                    ?>
+
     
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
@@ -170,11 +177,7 @@ if(isset($_POST['timein'])){
 
 
                     
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="">
-                        <span class="invalid-feedback"><?php echo $password_err; ?></span>
-                    </div>
+                  
                     
                     <div class="form-group">
                         <input type="submit" name="addStudent" class="btn btn-primary" value="Submit">
