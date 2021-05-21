@@ -37,7 +37,7 @@ require 'newTeacherProcess.php';
 </head>
 <body>
      
-
+<div class="container" style="padding-top: 30px">
 
         <!-- search div -->
      <div class="col" id="searchBar" >
@@ -72,15 +72,15 @@ require 'newTeacherProcess.php';
             </div>
 
             <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    
-   
-    <li class="page-item">
-      <a class="page-link" href="adminLogin.php">Go back</a>
-    </li>
-  </ul>
-</nav>
+                <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                        <a class="page-link" href="adminLogin.php">Go back</a>
+                        </li>
+                </ul>
+            </nav>
   
-    </div>
+    
+
+</div>
 </body>
 </html>
