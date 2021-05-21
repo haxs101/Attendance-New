@@ -3,6 +3,7 @@ function addTeacher() {
   document.getElementById("viewTeacher").style.display = "none";
   document.getElementById("viewAttendance").style.display = "none";
   document.getElementById("homee").style.display = "none";
+  document.getElementById("searchBar").style.display = "none";
 }
 
 function viewAttendance() {
@@ -10,6 +11,7 @@ function viewAttendance() {
   document.getElementById("viewTeacher").style.display = "none";
   document.getElementById("viewAttendance").style.display = "block";
   document.getElementById("homee").style.display = "none";
+  document.getElementById("searchBar").style.display = "none";
 }
 
 function viewTeacher() {
@@ -17,6 +19,7 @@ function viewTeacher() {
   document.getElementById("viewTeacher").style.display = "block";
   document.getElementById("viewAttendance").style.display = "none";
   document.getElementById("homee").style.display = "none";
+  document.getElementById("searchBar").style.display = "block";
 }
 
 function confirmationDelete(anchor) {

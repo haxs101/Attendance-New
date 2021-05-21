@@ -3,7 +3,9 @@ require 'addstudent.php';
 
 
 try {
-    $sql4 = "SELECT * FROM teacher_subjects where teacher = ('$teacher')";
+    $sql4 = "SELECT * FROM teacher_subjects where teacher = ('$teacher') GROUP BY subject HAVING COUNT(Name) >=1";
+
+   // $sql4 = "SELECT * FROM teacher_subjects GROUP BY subject HAVING COUNT(Name) >1";
 
     $q2 = $pdo->query($sql4);
 

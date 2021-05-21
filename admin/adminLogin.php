@@ -5,6 +5,7 @@
     require 'newTeacherProcess.php';
     require 'viewTeacherProcess.php';
     require 'adminViewAttendance.php';
+    
    
     // Check if the user is logged in, if not then redirect him to login page
     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -57,28 +58,39 @@
                     ?>
     
 
-    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="adminLogin.php">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="#" id="newTeacher" onclick="addTeacher()">New Teacher <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" id="showTeacher" onclick="viewTeacher()">View Teacher</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" id="attendance" onclick="viewAttendance()">Attendance</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../logout.php">Logout</a>
-        </li>
-        </ul>
-    </div>
-    </nav>
+    <nav class="navbar navbar-light navbar-expand-lg justify-content-between" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="adminLogin.php">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav" style="padding-right:330px">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" id="newTeacher" onclick="addTeacher()">New Teacher <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="showTeacher" onclick="viewTeacher()">View Teacher</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="attendance" onclick="viewAttendance()">Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../logout.php">Logout</a>
+                </li>
+                </ul>
+
+               
+  
+               
+  <!-- searchbar -->
+  <form class="form-inline" method="POST" action="search.php">
+    <input class="form-control mr-sm-2" type="search" name="searchName" placeholder="Search" onlick="searchBar()" aria-label="Search">
+    <input class="btn btn-outline-success my-2 my-sm-0" name="search" type="submit"  value="Search">
+  </form>
+
+                  
+            </div>
+        </nav>
 
     <div class="jumbotron" id="homee">
         <h1 class="display-4">Hello admin <?php echo htmlspecialchars(ucwords($_SESSION["username"])); ?>!</h1>
@@ -226,6 +238,9 @@
             </div>
   
     </div>
+
+
+   
 
 
 

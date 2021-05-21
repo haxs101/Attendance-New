@@ -108,7 +108,7 @@ if(isset($_POST['studentLogin'])){
                 
                 <div class="col-md-6 mb-r">    
                 <div class="form-header default-color text-center">
-                                <h1>Attendance Management System</h1>
+                                <h1>Automated Attendance System</h1>
                             </div>
                     <!--Form without header-->
                     <div class="card">

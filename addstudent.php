@@ -15,6 +15,7 @@ $email_err = $password_err = "";
 $added = "";
 $date = date("Y-m-d H:i:s");
 $teacher =  $_SESSION["Name"];
+
  
 // Processing form data when form is submitted
 if(isset($_POST['addStudent'])){

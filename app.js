@@ -8,7 +8,7 @@ function subjectHandled() {
   document.getElementById("addStudent").style.display = "none";
   document.getElementById("viewStudent").style.display = "none";
   document.getElementById("homee").style.display = "none";
-
+  document.getElementById("myViewStudent").style.display = "none";
   document.getElementById("teacherAttendance").style.display = "none";
 }
 
@@ -18,6 +18,7 @@ function addStudent() {
   document.getElementById("viewStudent").style.display = "none";
   document.getElementById("homee").style.display = "none";
   document.getElementById("teacherAttendance").style.display = "none";
+  document.getElementById("myViewStudent").style.display = "none";
 }
 
 function viewAttendance() {
@@ -26,6 +27,7 @@ function viewAttendance() {
   document.getElementById("viewStudent").style.display = "none";
   document.getElementById("homee").style.display = "none";
   document.getElementById("teacherAttendance").style.display = "none";
+  document.getElementById("myViewStudent").style.display = "none";
 }
 
 function viewStudent() {
@@ -34,6 +36,7 @@ function viewStudent() {
   document.getElementById("viewStudent").style.display = "block";
   document.getElementById("homee").style.display = "none";
   document.getElementById("teacherAttendance").style.display = "none";
+  document.getElementById("myViewStudent").style.display = "none";
 }
 
 function teacherAttendance() {
@@ -42,4 +45,14 @@ function teacherAttendance() {
   document.getElementById("viewStudent").style.display = "none";
   document.getElementById("homee").style.display = "none";
   document.getElementById("teacherAttendance").style.display = "block";
+  document.getElementById("myViewStudent").style.display = "none";
+}
+
+function myViewStudent() {
+  document.getElementById("addStudent").style.display = "none";
+  document.getElementById("subjectHandled").style.display = "block";
+  document.getElementById("viewStudent").style.display = "none";
+  document.getElementById("homee").style.display = "none";
+  document.getElementById("teacherAttendance").style.display = "none";
+  document.getElementById("myViewStudent").style.display = "block";
 }

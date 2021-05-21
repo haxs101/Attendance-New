@@ -5,6 +5,7 @@ session_start();
 require 'addstudent.php';
 require 'viewAttendanceConfig.php';
 require 'viewTeacherSubjectHandled.php';
+require 'viewStudentSubjectEnrolled.php';
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedinteacher"]) || $_SESSION["loggedinteacher"] !== true){
@@ -94,7 +95,7 @@ if(isset($_POST['timein'])){
             <a class="nav-link" href="#" id="newStudent1" onclick="addStudent()">New Student <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" id="showStudent1" onclick="viewStudent()">View Student</a>
+            <a class="nav-link" href="#" id="showStudent1" onclick="viewStudent()">View Student Attendance</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" id="takeAttendance1" onclick="teacherAttendance()">Teacher Attendance</a>
@@ -190,10 +191,14 @@ if(isset($_POST['timein'])){
             <div class="col" id="teacherAttendance" style="display:none;" >
                     <h1 style="text-align:center">Take attendance</h1>
 
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
-                        <h3>Time in</h3>
-                    </button>
+                  
+                    <div class="col-md-12 text-center" style="padding-top: 30px">
+                        <button type="button" class="btn btn-info  btn-block btn-md" data-toggle="modal" data-target="#myModal" style="">
+                            <h3 style="text-align:center">Time in</h3>
+                        </button>
+                    </div>
 
+                    <!-- Modal start-->
                     <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
 
@@ -226,7 +231,7 @@ if(isset($_POST['timein'])){
         
 
             <div class="col" id="viewStudent" style="display:none;" >
-                <h1 style="text-align:center">View Student</h1>
+                <h1 style="text-align:center">View Student Attendance</h1>
                 <p style="text-align:center; font-style:italic"> Note: Student's who did not submit attendance will not display here.</p>
                 <table class="table table-striped">
                     <thead>
@@ -255,31 +260,57 @@ if(isset($_POST['timein'])){
             <div class="col" id="subjectHandled" style="display:none;" >
             <h1 style="text-align:center">Subjects Handled</h1>
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">Subject</th>
-                      
-                        
-                        
-                        
-                    
-                        </tr>
-                    </thead>
+                  
                     <tbody>
                     <?php while ($row = $q2->fetch()): ?>
                         <tr>
-                            <th scope="row"><?php echo htmlspecialchars($row['subject']) ?></th>
-                            
-                           
-                           
+                            <th scope="row">
+                                <button type="button" onclick="myViewStudent()" class="btn btn-outline-info btn-block btn-md">
+                                <h5> <?php echo htmlspecialchars(ucwords($row['subject'])) ?></h5>
+                                </button>
+                       
+                            </th>
                         </tr>
                         <?php endwhile; ?>
                         
                     </tbody>
                 </table>
             </div>
-          
-        
+
+
+
+
+            <div class="col" id="myViewStudent" style="display:none;" >
+                <h3 style="text-align:center">Enrolled Student</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Subject</th>
+                        
+                        
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php while ($row = $q3->fetch()): ?>
+                        <tr>
+                            <th scope="row">
+                            <ul>
+                                <li>
+                                    <?php echo htmlspecialchars($row['Name']) ?>
+                                </li>
+                            </ul>
+                            </th>
+                            <th scope="row"><?php echo htmlspecialchars($row['subject']) ?></th>
+                        </tr>
+                        <?php endwhile; ?>
+                        
+                    </tbody>
+                </table>
+            </div>
+                
+                     
     
     </div>
 
