@@ -108,12 +108,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="css/main.css" rel="stylesheet">
     <style rel="stylesheet">
         body {
-            background-image: url('http://edusources.in/educampus/img/USICT.jpg');
+            background-image: linear-gradient(to left, #e6ffcc, #ffe6b3 );
         } 
         main {
             padding-top: 4rem;
             padding-bottom: 2rem;
         }
+        .myColor {
+            background: #ffd699;
+            border-radius: 25px;
+            
+        }
+        h3{
+            color: black;
+        }
+        h8{
+            color: black;
+        }
+        
+        
     </style>
 </head>
 
@@ -130,8 +143,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="card">
                         <div class="card-body">
                             <!--Header-->
-                            <div class="form-header default-color text-center">
-                                <h3> Teacher Email</h3>
+                            <div class="form-header text-center myColor">
+                                <h3> Teacher Login</h3>
                             </div>
                             
                             <!--Error Message-->
@@ -155,8 +168,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 </div>
                                
                                 <div class="text-center">
-                                    <button type="submit" name="login" class="btn btn-default waves-effect waves-light">Login</button>
-                                    <a href="index.php" class="btn btn-primary waves-effect waves-light">Go Back</a>   
+                                    <button type="submit" name="login" class="btn btn-primary myColor"><h8>Login</h8></button>
+                                    <a href="index.php" class="btn btn-primary myColor"><h8>Go Back</h8></a>   
                                 </div>
                                
                             </form>                           

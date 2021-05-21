@@ -103,11 +103,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="css/main.css" rel="stylesheet">
     <style rel="stylesheet">
         body {
-            background-image: url('http://edusources.in/educampus/img/USICT.jpg');
+            background-image: linear-gradient(to right,#e6ffcc,#cce6ff );
         } 
+        .adminColor{
+            background: #6666ff;
+           
+        }
         main {
             padding-top: 4rem;
             padding-bottom: 2rem;
+        }
+        .btn{
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -125,7 +132,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="card">
                         <div class="card-body">
                             <!--Header-->
-                            <div class="form-header default-color text-center">
+                            <div class="form-header adminColor text-center">
                                 <h3>Login</h3>
                             </div>
                             
@@ -149,7 +156,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 </div>
                                
                                 <div class="text-center">
-                                    <button type="submit" name="login" class="btn btn-default waves-effect waves-light">Login</button>
+                                    <button type="submit" name="login" class="btn btn-primary waves-effect waves-light">Login</button>
                                     <a href="index.php" class="btn btn-primary waves-effect waves-light">Go Back</a>  
                                 </div>
                                

@@ -95,6 +95,12 @@ if(isset($_POST['studentLogin'])){
             padding-top: 4rem;
             padding-bottom: 2rem;
         }
+        .indexColor {
+            border-radius: 25px;
+        }
+        .btn{
+            border-radius: 15px;
+        }
     </style>
 </head>
 
@@ -116,7 +122,7 @@ if(isset($_POST['studentLogin'])){
                             <!--Header-->
                             
 
-                            <div class="form-header default-color text-center">
+                            <div class="form-header default-color text-center indexColor">
                                 <h3>Student Login</h3>
                             </div>
                             <?php 
