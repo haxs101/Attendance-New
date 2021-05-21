@@ -117,11 +117,7 @@ if(isset($_POST['timein'])){
     <div class="jumbotron" id="homee">
         <h1 class="display-4">Hello Teacher <?php echo htmlspecialchars(ucwords($_SESSION["Name"])) ; ?>! </h1>
         <p class="lead">This is the homepage for teachers! You can add, view students from the nav bar.</p>
-        <hr class="my-4">
-        <p>Request a feature!</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="mailto:mrbaslote@gmail.com" role="button">Contact</a>
-        </p>
+       
     </div>
         <div class="row">
         
