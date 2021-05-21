@@ -36,8 +36,10 @@ require 'newTeacherProcess.php';
     <title>Document</title>
 </head>
 <body>
-     <!-- search div -->
+     
 
+
+        <!-- search div -->
      <div class="col" id="searchBar" >
             <h1 style="text-align:center">View Teacher Attendance</h1>
                 <table class="table table-striped">
@@ -68,6 +70,16 @@ require 'newTeacherProcess.php';
                     </tbody>
                 </table>
             </div>
+
+            <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    
+   
+    <li class="page-item">
+      <a class="page-link" href="adminLogin.php">Go back</a>
+    </li>
+  </ul>
+</nav>
   
     </div>
 </body>
