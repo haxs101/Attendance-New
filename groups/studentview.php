@@ -55,7 +55,7 @@ if(isset($_POST["updateProfileProcess"])){
     $updateAddress = trim($_POST["updateAddress"]);
     
 
-    $updateContact = trim($_POST["updateContact"]);
+    $updateContact = $_POST["updateContact"];
     $updateEmail = trim($_POST['updateEmail']);
   
     
@@ -66,33 +66,53 @@ if(isset($_POST["updateProfileProcess"])){
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":name", $updateName);
-            $stmt->bindParam(":address", $updateAddress);
-            $stmt->bindParam(":salary", $updateContact);
-            $stmt->bindParam(":email", $updateEmail);
+            $stmt->bindParam(":name", $param_name);
+            $stmt->bindParam(":address", $param_address);
+            $stmt->bindParam(":contact", $param_contact);
+            $stmt->bindParam(":email", $paramEmail);
             
             // Set parameters
-            $updateName = $name;
-            $updateAddress = $address;
-            $updateContact = $contact;
-            $updateEmail = $email;
+            $param_name = $updateName;
+            $param_address = $updateAddress;
+            $param_contact = $updateContact;
+            $paramEmail = $updateEmail;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
+
+                try{
+                    $sql2b = "UPDATE student_attendance_record SET Name= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $pdo->query($sql2b);
+                    }catch (Exception $e) { 
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+
+                try{
+                    $sql2b1 = "UPDATE teacher_subjects SET Name= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $pdo->query($sql2b1);
+                    }catch (Exception $e) { 
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+
                 // Records updated successfully. Redirect to landing page
-                header("location: studentview.php");
+                echo "<script>alert('Update success! Please login again!')</script>";
+                echo "<script>window.location.href='../logout.php'</script>";
                 exit();
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-         
+        }   
+
+             //update other table
+
+             //09512399818  
+
+            
+                    
         // Close statement
         unset($stmt);
     }
 
+   unset($pdo);
 }
-
+}
 ?>
 
 <!DOCTYPE html>
