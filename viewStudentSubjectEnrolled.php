@@ -4,7 +4,7 @@ require 'addstudent.php';
 
 
         try {
-            $sql45 = "SELECT DISTINCT * FROM teacher_subjects WHERE teacher = ('$teacher') GROUP BY subject ";
+            $sql45 = "SELECT * FROM teacher_subjects WHERE teacher = ('$teacher') GROUP BY subject ";
 
             // $sql4 = "SELECT * FROM teacher_subjects GROUP BY subject HAVING COUNT(Name) >=1";
 

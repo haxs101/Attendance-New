@@ -66,6 +66,13 @@ if(isset($_POST['timein'])){
     if(isset($_GET['action']) && $_GET['action'] == 'studentAdded'){
                         echo "<h4 class='alert alert-success'>Student added successfully!</h4>";
                     }
+
+?>
+
+<?php
+    if(isset($_GET['action']) && $_GET['action'] == 'delete'){
+                        echo "<h4 class='alert alert-danger'>Student deleted successfully!</h4>";
+                    }
                     ?>
 
     <?php
@@ -75,11 +82,13 @@ if(isset($_POST['timein'])){
     ?>
 
 <?php
+     if(isset($_GET['action']) && $_GET['action'] == 'deleteAttendance'){
+        echo "<h4 class='alert alert-danger'>Attendance deleted!</h4>";
+    }
+    ?>
     
-    if(isset($_GET['action']) && $_GET['action'] == 'delete'){
-                        echo "<h4 class='alert alert-danger'>Student deleted successfully!</h4>";
-                    }
-                    ?>
+
+
                     
                     <?php
     if(isset($_GET['action']) && $_GET['action'] == 'error'){
@@ -253,9 +262,11 @@ if(isset($_POST['timein'])){
                     <tbody>
                     <?php while ($row = $q->fetch()): ?>
                         <tr>
-                            <th scope="row"><?php echo htmlspecialchars($row['Name']) ?></th>
-                            <td><?php echo htmlspecialchars($row['subject']) ?></td>
+                            <th scope="row"><?php echo htmlspecialchars(ucwords($row['Name'])) ?></th>
+                            <td><?php echo htmlspecialchars(ucwords($row['subject'])) ?></td>
                             <td><?php echo htmlspecialchars($row['attendance']) ?></td>
+                            <td><a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteStudentAttendance.php?id=<?php echo $row['id']; ?>"><img src="icons/delete.svg" alt="Delete Teacher"></a></td>
+
                         </tr>
                         <?php endwhile; ?>
                         
@@ -309,6 +320,7 @@ if(isset($_POST['timein'])){
                             </ul>
                             </th>
                             <th scope="row"><?php echo htmlspecialchars($row['subject']) ?></th>
+                            <td><a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteStudent.php?id=<?php echo $row['id']; ?>"><img src="icons/delete.svg" alt="Delete Teacher"></a></td>
                         </tr>
                         <?php endwhile; ?>
                         

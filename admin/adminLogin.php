@@ -68,7 +68,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav" style="padding-right:330px">
+                <ul class="navbar-nav" style="padding-right:280px">
                 <li class="nav-item active">
                     <a class="nav-link" href="#" id="newTeacher" onclick="addTeacher()">New Teacher <span class="sr-only">(current)</span></a>
                 </li>

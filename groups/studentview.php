@@ -4,6 +4,7 @@
 require '../database/config.php';
 
 
+
  if(!isset($_SESSION["studentLogin"]) || $_SESSION["studentLogin"] !== true){
     header("location: ../index.php");
     exit;
@@ -18,7 +19,7 @@ if(isset($_POST['checkin'])){
     $insertdate->execute();
 
     try{
-        $sql2 = "INSERT INTO student_attendance_record (idNumber, attendance, Name, subject, teacher ) SELECT idNumber, date, Name, subject, teacher FROM newstudent WHERE idNumber = ($_SESSION[idNumber])";
+        $sql2 = "INSERT INTO student_attendance_record (id, idNumber, attendance, Name, subject, teacher ) SELECT id, idNumber, date, Name, subject, teacher FROM newstudent WHERE idNumber = ($_SESSION[idNumber])";
         $a = $pdo->prepare($sql2);
         $a->execute();
 
@@ -44,7 +45,53 @@ try {
     die("Could not connect to the database :" . $e->getMessage());
 }
 
+//Profile Update script
 
+if(isset($_POST["updateProfileProcess"])){
+    
+    
+    $updateName = trim($_POST["updateName"]);
+ 
+    $updateAddress = trim($_POST["updateAddress"]);
+    
+
+    $updateContact = trim($_POST["updateContact"]);
+    $updateEmail = trim($_POST['updateEmail']);
+  
+    
+    // Check input errors before inserting in database
+    if(empty($name_err) && empty($address_err)){
+        // Prepare an update statement
+        $sql = "UPDATE newstudent SET Name=:name, Address=:address, Contact=:contact, Email=:email WHERE idNumber = $_SESSION[idNumber]";
+ 
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":name", $updateName);
+            $stmt->bindParam(":address", $updateAddress);
+            $stmt->bindParam(":salary", $updateContact);
+            $stmt->bindParam(":email", $updateEmail);
+            
+            // Set parameters
+            $updateName = $name;
+            $updateAddress = $address;
+            $updateContact = $contact;
+            $updateEmail = $email;
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // Records updated successfully. Redirect to landing page
+                header("location: studentview.php");
+                exit();
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+         
+        // Close statement
+        unset($stmt);
+    }
+
+}
 
 ?>
 
@@ -57,7 +104,9 @@ try {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="app.js"></script>
     <title>Student <?php echo htmlspecialchars(ucwords($_SESSION["Name"])); ?>!</title>
 
    <style>
@@ -94,6 +143,11 @@ try {
             <ul class="navbar-nav">
 
             <li class="nav-item">
+            <a class="nav-link" href="#"  onclick="updateProfile()">Update Profile</a>
+        </li>
+            
+
+            <li class="nav-item">
                 <a href="../logout.php" class="btn btn-danger">Logout</a>
             </li>
         <li class="nav-item"></li>
@@ -111,21 +165,16 @@ try {
         <h2 class="subjects1"> Your Subjects!</h2>
             <p class="lead">
                    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal"><?php while ($row = $q->fetch()): ?>
+             <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal"><?php while ($row = $q->fetch()): ?>
                 <h3><?php echo htmlspecialchars(ucwords($row['subject']) )?></h3>
-        <?php endwhile; ?></button>
+                    <?php endwhile; ?>
+            </button>
             </p>
     </div>
 
 
 
-    
-
-    
-
-  
-
-
+   
     
 
         <!-- Modal -->
@@ -155,6 +204,43 @@ try {
 
             </div>
         </div>
+
+
+
+        <div class="col" id="updateProfile" style="display:none;" >
+            <h1 style="text-align:center">Update Profile</h1>
+                <form method="post">
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="updateName" class="form-control" required>
+                    </div>
+
+                  
+
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" name="updateAddress" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <input type="text" name="updateContact" class="form-control" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="updateEmail" class="form-control" required>
+                   </div>
+
+                    <div class="form-group">
+                        <input type="submit" name="updateProfileProcess" class="btn btn-primary" value="Submit">
+                        
+                    </div>
+
+                    </form>
+         </div>
         
 </div>
 
