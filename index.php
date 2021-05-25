@@ -16,14 +16,21 @@ if(isset($_POST['studentLogin'])){
                     $idnumber = trim($_POST["idNumber"]);
                 }
                 
+                if(empty(trim($_POST["password"]))){
+                    $password_err = "Please enter your password.";
+                } else{
+                    $password = trim($_POST["password"]);
+                }
                 // Check if password is empt
                 
                 // Validate credentials
                 if(empty($email_err)){
                     // Prepare a select statement
-                    $sql = "SELECT idNumber, Name FROM newstudent WHERE idNumber = :idNumber";
+                    $sql = "SELECT idNumber, Name, password FROM newstudent WHERE idNumber = :idNumber";
                     
                     if($stmt = $pdo->prepare($sql)){
+
+
                         // Bind variables to the prepared statement as parameters
                         $stmt->bindParam(":idNumber", $param_idNumber, PDO::PARAM_STR);
                         
@@ -38,6 +45,8 @@ if(isset($_POST['studentLogin'])){
                                     $id = $row["idNumber"];
                                     
                                     $name = $row["Name"];
+                                    $hashed_password = $row["password"];
+                                     if(password_verify($password, $hashed_password)){
                                         // Password is correct, so start a new session
                                         session_start();
                                         
@@ -55,6 +64,7 @@ if(isset($_POST['studentLogin'])){
                                         $login_err = "Invalid email or password. Please try again! ";
                                     }
                                 }
+                            }
                              else{
                                 // email doesn't exist, display a generic error message
                                 $login_err = "No record found. Please try again!";
@@ -137,13 +147,14 @@ if(isset($_POST['studentLogin'])){
                                     <input id="cyanForm-email" class="form-control" type="text" name="idNumber" required>
                                     <label for="cyanForm-email">ID Number</label>
                                 </div>
+
+                                <div class="md-form">
+                                    <i class="fa fa-id-card prefix grey-text"></i>
+                                    <input id="cyanForm-email" class="form-control" type="password" name="password" required>
+                                    <label for="cyanForm-email">Password</label>
+                                </div>
                                
-                                <?php                         
-                                    if( isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ) {
-                                    echo "<script>alert('Enrollment no or Password do not match');</script>";
-                                    unset($_SESSION['ERRMSG_ARR']);
-                                    }
-                                ?>
+                              
                                 <div class="text-center">
                                     <button type="submit" name="studentLogin" class="btn btn-default waves-effect waves-light">Student Login</button>
                                     <a href="loginteacher.php" class="btn btn-deep-orange waves-effect waves-light">Teacher Login</a> 

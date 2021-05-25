@@ -50,14 +50,21 @@ if(isset($_POST['addTeacher'])){
     }
     
     // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";     
-    } elseif(strlen(trim($_POST["password"])) < 4){
-        $password_err = "Password must have atleast 4 characters.";
-        header("location: adminLogin.php?action=errorPassword");
-    } else{
-        $password = trim($_POST["password"]);
+
+    function generateRandomString($length = 6) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
+    
+    
+   
+        $password = generateRandomString();
+    
     
     if(empty(trim($_POST["teacherName"]))){
         $password_err = "Please enter a Name.";     
@@ -125,9 +132,9 @@ if(isset($_POST['addTeacher'])){
             
 
             //variables for email
-
-            $message = " <p><strong>Your login credentials </strong></p> <p>Email: $param_email </p> <p> Password: $param_password_email </p> <p>Best regards,</p> <p>Admin</p>" ;
-            $subject = "Welcome $param_teacherName! ";
+            $teacherNameEmail = ucwords($param_teacherName);
+            $message = " <p><strong>Your login credentials </strong></p><strong>Email: $param_email</strong> </p> <p><strong> Password: $param_password_email</strong> </p> <p>Best regards,</p> <p>Admin</p>" ;
+            $subject = "Welcome Teacher $teacherNameEmail! ";
                //send email
             $email = new \SendGrid\Mail\Mail(); 
             $email->setFrom("mrbaslote@gmail.com", "Mael Baslote");

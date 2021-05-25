@@ -55,6 +55,19 @@ if(isset($_POST['addStudent'])){
     }
     
    
+    function generateRandomString($length = 6) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+    
+    
+   
+        $password = generateRandomString();
   
     if(empty(trim($_POST["studentName"]))){
         $password_err = "Please enter a Name.";     
@@ -87,7 +100,7 @@ if(isset($_POST['addStudent'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, subject, date, teacher) VALUES (:idNumber, :studentName, :contact, :address, :email, :subject, ('$date'), ('$teacher'))";
+        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, date, teacher) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, ('$date'), ('$teacher'))";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -97,6 +110,7 @@ if(isset($_POST['addStudent'])){
             $stmt->bindParam(":contact", $param_contact, PDO::PARAM_STR);
             $stmt->bindParam(":address", $param_address, PDO::PARAM_STR);
             $stmt->bindParam(":subject", $param_subject, PDO::PARAM_STR);
+            $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
 
 
 
@@ -108,6 +122,11 @@ if(isset($_POST['addStudent'])){
             $param_email = $email;
           
             $param_subject = $subject;
+
+            $param_password_email = $password;
+           
+
+            $param_password = password_hash($password, PASSWORD_DEFAULT);
         
             
             //$param_password_verify = password_verify($password, PASSWORD_DEFAULT); 
@@ -121,9 +140,9 @@ if(isset($_POST['addStudent'])){
             
 
             //variables for email
-
-            $message = " <p>Please use <strong>$param_idNumber</strong> to login. </p> <p>Best regards,</p> <p>Admin</p>" ;
-            $subject1 = "Welcome student $param_studentName! ";
+            $studentNameEmail = ucwords($param_studentName);
+            $message = " <p>Your Login Credentials: </p> <p> <strong>ID Number: $param_idNumber</strong></p><p> <strong>Password: $param_password_email</strong></p><p>Best regards,</p> <p>Admin</p>" ;
+            $subject1 = "Welcome student $studentNameEmail! ";
                //send email
             $email = new \SendGrid\Mail\Mail(); 
             $email->setFrom("mrbaslote@gmail.com", "Mael Baslote");

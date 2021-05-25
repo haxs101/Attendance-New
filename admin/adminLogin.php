@@ -148,16 +148,6 @@
                         <span class="invalid-feedback"><?php echo $email_err; ?></span>
                     </div>
 
-
-                    
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                            <small id="passwordHelpInline" class="text-muted">
-                                 Must be 4-20 characters long.
-                            </small>
-                        <span class="invalid-feedback"><?php echo $password_err; ?></span>
-                    </div>
                     
                     <div class="form-group">
                         <input type="submit" name="addTeacher" class="btn btn-primary" value="Submit">

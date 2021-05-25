@@ -57,12 +57,13 @@ if(isset($_POST["updateProfileProcess"])){
 
     $updateContact = $_POST["updateContact"];
     $updateEmail = trim($_POST['updateEmail']);
+    $updatePassword = trim($_POST['updatePassword']);
   
     
     // Check input errors before inserting in database
     if(empty($name_err) && empty($address_err)){
         // Prepare an update statement
-        $sql = "UPDATE newstudent SET Name=:name, Address=:address, Contact=:contact, Email=:email WHERE idNumber = $_SESSION[idNumber]";
+        $sql = "UPDATE newstudent SET Name=:name, Address=:address, Contact=:contact, Email=:email, password=:password WHERE idNumber = $_SESSION[idNumber]";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -70,12 +71,16 @@ if(isset($_POST["updateProfileProcess"])){
             $stmt->bindParam(":address", $param_address);
             $stmt->bindParam(":contact", $param_contact);
             $stmt->bindParam(":email", $paramEmail);
+            $stmt->bindParam(":password", $param_password);
             
             // Set parameters
             $param_name = $updateName;
             $param_address = $updateAddress;
             $param_contact = $updateContact;
             $paramEmail = $updateEmail;
+
+           
+            $param_password = password_hash($updatePassword, PASSWORD_DEFAULT);
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -233,25 +238,30 @@ if(isset($_POST["updateProfileProcess"])){
 
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="updateName" class="form-control" required>
+                        <input type="text" name="updateName" class="form-control" >
                     </div>
 
                   
 
                     <div class="form-group">
                         <label>Address</label>
-                        <input type="text" name="updateAddress" class="form-control" required>
+                        <input type="text" name="updateAddress" class="form-control" >
                     </div>
 
                     <div class="form-group">
                         <label>Contact</label>
-                        <input type="text" name="updateContact" class="form-control" required>
+                        <input type="text" name="updateContact" class="form-control" >
                     </div>
 
 
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" name="updateEmail" class="form-control" required>
+                        <input type="text" name="updateEmail" class="form-control" >
+                   </div>
+
+                   <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="updatePassword" class="form-control" >
                    </div>
 
                     <div class="form-group">

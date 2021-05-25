@@ -35,6 +35,104 @@ if(isset($_POST['timein'])){
         
     
 }
+/** 
+function generateRandomString($length = 6) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+echo generateRandomString();
+
+*/
+
+if(isset($_POST["updateTeacherProfileProcess"])){
+    
+    
+    $updateName = trim($_POST["updateName"]);
+ 
+    $updateAddress = trim($_POST["updateAddress"]);
+    
+
+    $updateContact = $_POST["updateContact"];
+    $updateEmail = trim($_POST['updateEmail']);
+    $updatePassword = trim($_POST['updatePassword']);
+  
+    
+    // Check input errors before inserting in database
+    if(empty($name_err) && empty($address_err)){
+        // Prepare an update statement
+        $sql = "UPDATE newteacher SET Name=:name, Address=:address, Contact=:contact, Email=:email, password=:password WHERE idNumber = $_SESSION[idNumber]";
+ 
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":name", $param_name);
+            $stmt->bindParam(":address", $param_address);
+            $stmt->bindParam(":contact", $param_contact);
+            $stmt->bindParam(":email", $paramEmail);
+            $stmt->bindParam(":password", $param_password);
+            
+            // Set parameters
+            $param_name = $updateName;
+            $param_address = $updateAddress;
+            $param_contact = $updateContact;
+            $paramEmail = $updateEmail;
+
+           
+            $param_password = password_hash($updatePassword, PASSWORD_DEFAULT);
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+
+                try{
+                    $sql2b = "UPDATE teacher_attendance_record SET Name= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $pdo->query($sql2b);
+                    }catch (Exception $e) { 
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+
+                try{
+                    $sql2b1 = "UPDATE teacher_subjects SET teacher= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $pdo->query($sql2b1);
+                    }catch (Exception $e) { 
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+                try{
+                    $sql2b1 = "UPDATE newstudent SET teacher= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $pdo->query($sql2b1);
+                    }catch (Exception $e) { 
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+                try{
+                    $sql2b1 = "UPDATE student_attendance_record SET teacher= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $pdo->query($sql2b1);
+                    }catch (Exception $e) { 
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+
+                // Records updated successfully. Redirect to landing page
+                echo "<script>alert('Update success! Please login again!')</script>";
+                echo "<script>window.location.href='logout.php'</script>";
+                exit();
+        }   
+
+             //update other table
+
+             //09512399818  
+
+            
+                    
+        // Close statement
+        unset($stmt);
+    }
+
+   unset($pdo);
+}
+}
 
 ?>
 
@@ -122,6 +220,10 @@ if(isset($_POST['timein'])){
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" id="subjectHandle1" onclick="subjectHandled()">Subject Handled</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#"  onclick="updateProfile()">Update Profile</a>
         </li>
      
         <li class="nav-item">
@@ -315,12 +417,13 @@ if(isset($_POST['timein'])){
                             <th scope="row">
                             <ul>
                                 <li>
-                                    <?php echo htmlspecialchars($row['Name']) ?>
+                                    <?php echo htmlspecialchars(ucwords($row['Name'])) ?>
                                 </li>
                             </ul>
                             </th>
-                            <th scope="row"><?php echo htmlspecialchars($row['subject']) ?></th>
+                            <th scope="row"><?php echo htmlspecialchars(ucwords($row['subject'])) ?></th>
                             <td><a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteStudent.php?id=<?php echo $row['id']; ?>"><img src="icons/delete.svg" alt="Delete Teacher"></a></td>
+                            
                         </tr>
                         <?php endwhile; ?>
                         
@@ -328,6 +431,45 @@ if(isset($_POST['timein'])){
                 </table>
             </div>
                 
+
+            <div class="col" id="updateProfile" style="display:none;" >
+            <h1 style="text-align:center">Update Profile</h1>
+            <form method="post">
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="updateName" class="form-control" >
+                </div>
+
+
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="updateAddress" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <label>Contact</label>
+                    <input type="text" name="updateContact" class="form-control" >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" name="updateEmail" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="updatePassword" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" name="updateTeacherProfileProcess" class="btn btn-primary" value="Submit">
+                    
+                </div>
+
+            </form>
                      
     
     </div>
