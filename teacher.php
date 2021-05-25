@@ -60,13 +60,13 @@ if(isset($_POST["updateTeacherProfileProcess"])){
 
     $updateContact = $_POST["updateContact"];
     $updateEmail = trim($_POST['updateEmail']);
-    $updatePassword = trim($_POST['updatePassword']);
+    
   
     
     // Check input errors before inserting in database
     if(empty($name_err) && empty($address_err)){
         // Prepare an update statement
-        $sql = "UPDATE newteacher SET Name=:name, Address=:address, Contact=:contact, Email=:email, password=:password WHERE idNumber = $_SESSION[idNumber]";
+        $sql = "UPDATE newteacher SET Name=:name, Address=:address, Contact=:contact, Email=:email WHERE idNumber = $_SESSION[idNumber]";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -74,7 +74,7 @@ if(isset($_POST["updateTeacherProfileProcess"])){
             $stmt->bindParam(":address", $param_address);
             $stmt->bindParam(":contact", $param_contact);
             $stmt->bindParam(":email", $paramEmail);
-            $stmt->bindParam(":password", $param_password);
+           
             
             // Set parameters
             $param_name = $updateName;
@@ -83,7 +83,7 @@ if(isset($_POST["updateTeacherProfileProcess"])){
             $paramEmail = $updateEmail;
 
            
-            $param_password = password_hash($updatePassword, PASSWORD_DEFAULT);
+        
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -96,19 +96,19 @@ if(isset($_POST["updateTeacherProfileProcess"])){
                 }
 
                 try{
-                    $sql2b1 = "UPDATE teacher_subjects SET teacher= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $sql2b1 = "UPDATE teacher_subjects SET teacher= '$param_name'";
                     $pdo->query($sql2b1);
                     }catch (Exception $e) { 
                 echo 'Caught exception: '. $e->getMessage() ."\n";
                 }
                 try{
-                    $sql2b1 = "UPDATE newstudent SET teacher= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $sql2b1 = "UPDATE newstudent SET teacher= '$param_name' ";
                     $pdo->query($sql2b1);
                     }catch (Exception $e) { 
                 echo 'Caught exception: '. $e->getMessage() ."\n";
                 }
                 try{
-                    $sql2b1 = "UPDATE student_attendance_record SET teacher= '$param_name' WHERE idNumber = $_SESSION[idNumber]";
+                    $sql2b1 = "UPDATE student_attendance_record SET teacher= '$param_name'";
                     $pdo->query($sql2b1);
                     }catch (Exception $e) { 
                 echo 'Caught exception: '. $e->getMessage() ."\n";
@@ -122,8 +122,7 @@ if(isset($_POST["updateTeacherProfileProcess"])){
 
              //update other table
 
-             //09512399818  
-
+            
             
                     
         // Close statement
@@ -133,6 +132,54 @@ if(isset($_POST["updateTeacherProfileProcess"])){
    unset($pdo);
 }
 }
+
+if(isset($_POST['updateTeacherPassword'])){
+    $updatePassword = trim($_POST['updatePassword']);
+    $updatePasswordVerify = trim($_POST['updatePasswordVerify']);
+  
+    
+    // Check input errors before inserting in database
+    if($updatePassword != $updatePasswordVerify){
+        header("Location: teacher.php?action=passwordError");
+    }else{
+        // Prepare an update statement
+        $sql = "UPDATE newteacher SET password=:password WHERE idNumber = $_SESSION[idNumber]";
+ 
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+           
+            $stmt->bindParam(":password", $param_password);
+            
+            // Set parameters
+            $param_password = password_hash($updatePassword, PASSWORD_DEFAULT);
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+
+
+                // Records updated successfully. Redirect to landing page
+                echo "<script>alert('Password updated successfully!')</script>";
+                header("Location: teacher.php?action=passwordSuccess");
+                exit();
+        }   
+
+             //update other table
+
+            
+            
+                    
+        // Close statement
+        unset($stmt);
+    }else{
+        echo "ERROR";
+    }
+
+   unset($pdo);
+}
+}
+
+
+
 
 ?>
 
@@ -163,6 +210,20 @@ if(isset($_POST["updateTeacherProfileProcess"])){
     <?php
     if(isset($_GET['action']) && $_GET['action'] == 'studentAdded'){
                         echo "<h4 class='alert alert-success'>Student added successfully!</h4>";
+                    }
+
+?>
+
+  <?php
+    if(isset($_GET['action']) && $_GET['action'] == 'passwordError'){
+                        echo "<h4 class='alert alert-warning'>Password didn't match! Please try again!</h4>";
+                    }
+
+?>
+
+<?php
+    if(isset($_GET['action']) && $_GET['action'] == 'passwordSuccess'){
+                        echo "<h4 class='alert alert-success'>Password updated successfully!</h4>";
                     }
 
 ?>
@@ -203,14 +264,18 @@ if(isset($_POST["updateTeacherProfileProcess"])){
     
 
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="teacher.php">Home</a>
+   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="#" id="newStudent1" onclick="addStudent()">New Student <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="teacher.php">Home </a>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="#" id="newStudent1" onclick="addStudent()">New Student </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" id="showStudent1" onclick="viewStudent()">View Student Attendance</a>
@@ -224,6 +289,10 @@ if(isset($_POST["updateTeacherProfileProcess"])){
 
         <li class="nav-item">
             <a class="nav-link" href="#"  onclick="updateProfile()">Update Profile</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#"  onclick="changePassword()">Change Password</a>
         </li>
      
         <li class="nav-item">
@@ -432,7 +501,7 @@ if(isset($_POST["updateTeacherProfileProcess"])){
             </div>
                 
 
-            <div class="col" id="updateProfile" style="display:none;" >
+        <div class="col" id="updateProfile" style="display:none;" >
             <h1 style="text-align:center">Update Profile</h1>
             <form method="post">
 
@@ -459,10 +528,7 @@ if(isset($_POST["updateTeacherProfileProcess"])){
                     <input type="text" name="updateEmail" class="form-control" >
                 </div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="updatePassword" class="form-control" >
-                </div>
+              
 
                 <div class="form-group">
                     <input type="submit" name="updateTeacherProfileProcess" class="btn btn-primary" value="Submit">
@@ -472,7 +538,36 @@ if(isset($_POST["updateTeacherProfileProcess"])){
             </form>
                      
     
+         </div>
+
+
+    <div class="col" id="changePassword" style="display:none;" >
+            <h1 style="text-align:center">Update Profile</h1>
+            <form method="post">
+
+              
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="updatePassword" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <label>Verify Password</label>
+                    <input type="password" name="updatePasswordVerify" class="form-control" >
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" name="updateTeacherPassword" class="btn btn-primary" value="Submit">
+                    
+                </div>
+
+            </form>
+                     
+    
     </div>
+
+</div>
 
    <?php
 

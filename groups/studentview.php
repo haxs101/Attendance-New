@@ -57,13 +57,13 @@ if(isset($_POST["updateProfileProcess"])){
 
     $updateContact = $_POST["updateContact"];
     $updateEmail = trim($_POST['updateEmail']);
-    $updatePassword = trim($_POST['updatePassword']);
+    
   
     
     // Check input errors before inserting in database
     if(empty($name_err) && empty($address_err)){
         // Prepare an update statement
-        $sql = "UPDATE newstudent SET Name=:name, Address=:address, Contact=:contact, Email=:email, password=:password WHERE idNumber = $_SESSION[idNumber]";
+        $sql = "UPDATE newstudent SET Name=:name, Address=:address, Contact=:contact, Email=:email WHERE idNumber = $_SESSION[idNumber]";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -71,7 +71,7 @@ if(isset($_POST["updateProfileProcess"])){
             $stmt->bindParam(":address", $param_address);
             $stmt->bindParam(":contact", $param_contact);
             $stmt->bindParam(":email", $paramEmail);
-            $stmt->bindParam(":password", $param_password);
+          
             
             // Set parameters
             $param_name = $updateName;
@@ -80,7 +80,7 @@ if(isset($_POST["updateProfileProcess"])){
             $paramEmail = $updateEmail;
 
            
-            $param_password = password_hash($updatePassword, PASSWORD_DEFAULT);
+           
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -118,6 +118,54 @@ if(isset($_POST["updateProfileProcess"])){
    unset($pdo);
 }
 }
+
+if(isset($_POST['updateStudentPassword'])){
+    $updatePassword = trim($_POST['updatePassword']);
+    $updatePasswordVerify = trim($_POST['updatePasswordVerify']);
+  
+    
+    // Check input errors before inserting in database
+    if($updatePassword != $updatePasswordVerify){
+
+        header("Location: studentview.php?action=errorPassword");}
+        else{
+        // Prepare an update statement
+        $sql = "UPDATE newstudent SET password=:password WHERE idNumber = $_SESSION[idNumber]";
+ 
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+           
+            $stmt->bindParam(":password", $param_password);
+            
+            // Set parameters
+            $param_password = password_hash($updatePassword, PASSWORD_DEFAULT);
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+
+
+                // Records updated successfully. Redirect to landing page
+                echo "<script>alert('Password updated successfully!')</script>";
+                header("location: studentview.php?action=passwordChanged");
+               
+                exit();
+        }   
+
+             //update other table
+
+            
+            
+                    
+        // Close statement
+        unset($stmt);
+    }else{
+        echo "ERROR";
+    }
+
+   unset($pdo);
+}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -159,6 +207,19 @@ if(isset($_POST["updateProfileProcess"])){
                         echo "<h4 class='alert alert-success'>Your attendance has been recorded!</h4>";
                     }
         ?>
+
+<?php
+            if(isset($_GET['action']) && $_GET['action'] == 'passwordChanged'){
+                        echo "<h4 class='alert alert-success'>Password changed successfully!</h4>";
+                    }
+        ?>
+
+<?php
+            if(isset($_GET['action']) && $_GET['action'] == 'errorPassword'){
+                        echo "<h4 class='alert alert-warning'>Password didn't match! Please try again</h4>";
+                    }
+        ?>
+
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd; padding-bottom: 20px">
         <a class="navbar-brand" href="studentview.php">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -169,7 +230,11 @@ if(isset($_POST["updateProfileProcess"])){
 
             <li class="nav-item">
             <a class="nav-link" href="#"  onclick="updateProfile()">Update Profile</a>
-        </li>
+            </li>
+
+            <li class="nav-item">
+            <a class="nav-link" href="#"  onclick="updatePassword()">Change Password</a>
+            </li>
             
 
             <li class="nav-item">
@@ -259,13 +324,33 @@ if(isset($_POST["updateProfileProcess"])){
                         <input type="text" name="updateEmail" class="form-control" >
                    </div>
 
+               
+
+                    <div class="form-group">
+                        <input type="submit" name="updateProfileProcess" class="btn btn-primary" value="Submit">
+                        
+                    </div>
+
+                    </form>
+         </div>
+
+
+         <div class="col" id="updatePassword" style="display:none;" >
+            <h1 style="text-align:center">Update Profile</h1>
+                <form method="post">
+
                    <div class="form-group">
                         <label>Password</label>
                         <input type="password" name="updatePassword" class="form-control" >
                    </div>
 
+                   <div class="form-group">
+                        <label>Verify Password</label>
+                        <input type="password" name="updatePasswordVerify" class="form-control" >
+                   </div>
+
                     <div class="form-group">
-                        <input type="submit" name="updateProfileProcess" class="btn btn-primary" value="Submit">
+                        <input type="submit" name="updateStudentPassword" class="btn btn-primary" value="Submit">
                         
                     </div>
 
