@@ -117,25 +117,25 @@
                         <label>Teacher Name</label>
                         <span class="invalid-feedback"><?php echo $added; ?></span> 
                         <input type="text" name="teacherName" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                       
                     </div>
 
                     <div class="form-group">
                         <label>ID Number</label>
                         <input type="text" name="idNumber" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                       
                     </div>
 
                     <div class="form-group">
                         <label>Address</label>
                         <input type="text" name="address" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                       
                     </div>
 
                     <div class="form-group">
                         <label>Contact No.</label>
                         <input type="text" name="contact" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                       
                     </div>
                   
 
@@ -145,7 +145,7 @@
                             <small id="passwordHelpInline" class="text-muted">
                                  Credentials will be sent to this email address.
                             </small>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                       
                     </div>
 
                     

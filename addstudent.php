@@ -93,6 +93,11 @@ if(isset($_POST['addStudent'])){
         $subject = trim($_POST["subject"]);
     }
 
+  
+        $subject3 = trim($_POST["subject3"]);
+        $subject2 = trim($_POST["subject2"]);
+    
+
 
  
    
@@ -100,7 +105,7 @@ if(isset($_POST['addStudent'])){
     if(empty($email_err) && empty($password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, date, teacher) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, ('$date'), ('$teacher'))";
+        $sql = "INSERT INTO newstudent (idNumber, Name, Contact, Address, Email, password, subject, subject2, subject3, date, teacher) VALUES (:idNumber, :studentName, :contact, :address, :email, :password, :subject, :subject2, :subject3, ('$date'), ('$teacher'))";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -110,6 +115,8 @@ if(isset($_POST['addStudent'])){
             $stmt->bindParam(":contact", $param_contact, PDO::PARAM_STR);
             $stmt->bindParam(":address", $param_address, PDO::PARAM_STR);
             $stmt->bindParam(":subject", $param_subject, PDO::PARAM_STR);
+            $stmt->bindParam(":subject2", $param_subject2, PDO::PARAM_STR);
+            $stmt->bindParam(":subject3", $param_subject3, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
 
 
@@ -122,6 +129,8 @@ if(isset($_POST['addStudent'])){
             $param_email = $email;
           
             $param_subject = $subject;
+            $param_subject3 = $subject3;
+            $param_subject2 = $subject2;
 
             $param_password_email = $password;
            
@@ -142,11 +151,11 @@ if(isset($_POST['addStudent'])){
             //variables for email
             $studentNameEmail = ucwords($param_studentName);
             $message = " <p>Your Login Credentials: </p> <p> <strong>ID Number: $param_idNumber</strong></p><p> <strong>Password: $param_password_email</strong></p><p>Best regards,</p> <p>Admin</p>" ;
-            $subject1 = "Welcome student $studentNameEmail! ";
+            $subject1Email = "Welcome student $studentNameEmail! ";
                //send email
             $email = new \SendGrid\Mail\Mail(); 
             $email->setFrom("mrbaslote@gmail.com", "Mael Baslote");
-            $email->setSubject($subject1);
+            $email->setSubject($subject1Email);
             $email->addTo($param_email, $param_studentName);
             $email->addContent("text/plain", $message);
             $email->addContent(
@@ -170,7 +179,7 @@ if(isset($_POST['addStudent'])){
                 
             //adding table with subject as name
             try{  
-                $sql2 = "INSERT INTO teacher_subjects SELECT id, idNumber, Name, subject, teacher FROM newstudent";
+                $sql2 = "INSERT INTO teacher_subjects SELECT id, idNumber, Name, subject, subject2, subject3, teacher FROM newstudent";
                         if ($pdo->query($sql2) === TRUE) {
                             
                                 echo "Table MyGuests created successfully";

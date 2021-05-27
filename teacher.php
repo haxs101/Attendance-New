@@ -321,31 +321,43 @@ if(isset($_POST['updateTeacherPassword'])){
                         <label>Student Name</label>
                         <span class="invalid-feedback"><?php echo $added; ?></span> 
                         <input type="text" name="studentName" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                      
                     </div>
 
                     <div class="form-group">
                         <label>ID Number</label>
                         <input type="text" name="idNumber" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                      
                     </div>
 
                     <div class="form-group">
-                        <label>Subject</label>
+                        <label>Subjects</label>
                         <input type="text" name="subject" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                      
+                    </div>
+
+                    <div class="form-group">
+                       
+                        <input type="text" name="subject2" class="form-control" >
+                      
+                    </div>
+
+                    <div class="form-group">
+                       
+                        <input type="text" name="subject3" class="form-control" >
+                      
                     </div>
 
                     <div class="form-group">
                         <label>Address</label>
                         <input type="text" name="address" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                      
                     </div>
 
                     <div class="form-group">
                         <label>Contact</label>
                         <input type="text" name="contact" class="form-control" required>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                      
                     </div>
                    
 
@@ -355,7 +367,7 @@ if(isset($_POST['updateTeacherPassword'])){
                             <small id="passwordHelpInline" class="text-muted">
                                     Credentials will be sent to this email address.
                             </small>
-                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                      
                     </div>
 
 
@@ -456,6 +468,14 @@ if(isset($_POST['updateTeacherPassword'])){
                                 <button type="button" onclick="myViewStudent()" class="btn btn-outline-info btn-block btn-md">
                                 <h5> <?php echo htmlspecialchars(ucwords($row['subject'])) ?></h5>
                                 </button>
+
+                                <button type="button" onclick="myViewStudent()" class="btn btn-outline-info btn-block btn-md">
+                                <h5> <?php echo htmlspecialchars(ucwords($row['subject2'])) ?></h5>
+                                </button>
+
+                                <button type="button" onclick="myViewStudent()" class="btn btn-outline-info btn-block btn-md">
+                                <h5> <?php echo htmlspecialchars(ucwords($row['subject3'])) ?></h5>
+                                </button>
                        
                             </th>
                         </tr>
@@ -491,7 +511,50 @@ if(isset($_POST['updateTeacherPassword'])){
                             </ul>
                             </th>
                             <th scope="row"><?php echo htmlspecialchars(ucwords($row['subject'])) ?></th>
-                            <td><a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteStudent.php?id=<?php echo $row['id']; ?>"><img src="icons/delete.svg" alt="Delete Teacher"></a></td>
+                            
+                            <td>
+                                <a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteStudent.php?id=<?php echo $row['id']; ?>"><img src="icons/delete.svg" alt="Delete Teacher"></a>
+                            </td>
+                            
+
+                            
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                            <ul>
+                                <li>
+                                    <?php echo htmlspecialchars(ucwords($row['Name'])) ?>
+                                </li>
+                            </ul>
+                            </th>
+                            <th scope="row"><?php echo htmlspecialchars(ucwords($row['subject2'])) ?></th>
+                            
+                            <td>
+                                <a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteStudent.php?id=<?php echo $row['id']; ?>"><img src="icons/delete.svg" alt="Delete Teacher"></a>
+                            </td>
+                            
+
+                            
+                        </tr>
+
+
+
+                        <tr>
+                            <th scope="row">
+                            <ul>
+                                <li>
+                                    <?php echo htmlspecialchars(ucwords($row['Name'])) ?>
+                                </li>
+                            </ul>
+                            </th>
+                            <th scope="row"><?php echo htmlspecialchars(ucwords($row['subject3'])) ?></th>
+                            
+                            <td>
+                                <a onclick="javascript:confirmationDelete($(this));return false;"  href="deleteStudent.php?id=<?php echo $row['id']; ?>"><img src="icons/delete.svg" alt="Delete Teacher"></a>
+                            </td>
+                            
+
                             
                         </tr>
                         <?php endwhile; ?>
