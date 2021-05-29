@@ -190,7 +190,9 @@ if(isset($_POST['updateStudentPassword'])){
    body {
             background-image:  linear-gradient(to left, #ccffdd, #ffffcc )
         } 
-   
+    .boldNica {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -220,7 +222,7 @@ if(isset($_POST['updateStudentPassword'])){
                     }
         ?>
 
-    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd; padding-bottom: 20px">
+    <nav class="navbar navbar-light navbar-expand-lg boldNica" style="background-color: #e3f2fd; padding-bottom: 20px">
         <a class="navbar-brand" href="studentview.php">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

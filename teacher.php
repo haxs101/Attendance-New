@@ -200,6 +200,10 @@ if(isset($_POST['updateTeacherPassword'])){
  body {
             background-image: linear-gradient(to left, #e6ffcc, #ffe6b3 );
         } 
+
+.boldNica {
+            font-weight: bold;
+        }
 </style>
 
         <title>Teacher Page</title>
@@ -263,7 +267,7 @@ if(isset($_POST['updateTeacherPassword'])){
 
     
 
-    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-light navbar-expand-lg boldNica" style="background-color: #e3f2fd;">
    
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

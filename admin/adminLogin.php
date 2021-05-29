@@ -33,6 +33,10 @@
         body {
             background-image: linear-gradient(to right,#e6ffcc,#cce6ff );
         } 
+
+        .boldNica {
+            font-weight: bold;
+        }
        </style>
         
     </head>
@@ -62,7 +66,7 @@
                     ?>
     
 
-    <nav class="navbar navbar-light navbar-expand-lg justify-content-between" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-light navbar-expand-lg justify-content-between boldNica"  style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="adminLogin.php">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
