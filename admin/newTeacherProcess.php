@@ -95,9 +95,10 @@ if(isset($_POST['addTeacher'])){
    
     // Check input errors before inserting in database
     if(empty($email_err) && empty($password_err)){
-        
+        date_default_timezone_set('Asia/Manila');
+        $date = date("Y-m-d H:i:s");
         // Prepare an insert statement
-        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, type, attendance) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, 'Teacher', '')";
+        $sql = "INSERT INTO newteacher (idNumber, Name, Contact, Address, Email, password, type, attendance) VALUES (:idNumber, :teacherName, :contact, :address, :email, :password, 'Teacher', ('$date'))";
          
            if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
